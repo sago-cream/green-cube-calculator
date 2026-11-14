@@ -1,0 +1,781 @@
+{
+    "items": {
+        "item-skill_tree_allmember-1": {
+            "name": "Green Cube",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-allmember-1/img_item_thumb_skill-tree-allmember-1.webp"
+        },
+        "item-skill_tree_allmember-2": {
+            "name": "Green Hexa",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-allmember-2/img_item_thumb_skill-tree-allmember-2.webp"
+        },
+        "item-skill_tree_card-1": {
+            "name": "Blue Cube",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-card-1/img_item_thumb_skill-tree-card-1.webp"
+        },
+        "item-skill_tree_card-2": {
+            "name": "Blue Hexa",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-card-2/img_item_thumb_skill-tree-card-2.webp"
+        },
+        "item-skill_tree_content-1": {
+            "name": "Yellow Cube",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-content-1/img_item_thumb_skill-tree-content-1.webp"
+        },
+        "item-skill_tree_content-2": {
+            "name": "Yellow Hexa",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-content-2/img_item_thumb_skill-tree-content-2.webp"
+        },
+        "item-skill_tree_leader-1": {
+            "name": "Red Cube",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-leader-1/img_item_thumb_skill-tree-leader-1.webp"
+        },
+        "item-skill_tree_leader-2": {
+            "name": "Red Hexa",
+            "thumb": "assetbundles/img_item_thumb_skill-tree-leader-2/img_item_thumb_skill-tree-leader-2.webp"
+        }
+    },
+    "members": [
+        {
+            "color": "6878FF",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00001/img_chr_icon_mini_00001.webp",
+            "id": "chr-00001",
+            "name": "Tokino Sora",
+            "pointName": "Tokino Sora Points",
+            "shortName": "Sora",
+            "subgroup": "Gen 0",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "FF6187",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00002/img_chr_icon_mini_00002.webp",
+            "id": "chr-00002",
+            "name": "Robocosan",
+            "pointName": "Robocosan Points",
+            "shortName": "Robocosan",
+            "subgroup": "Gen 0",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "F081A3",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00013/img_chr_icon_mini_00013.webp",
+            "id": "chr-00013",
+            "name": "AZKi",
+            "pointName": "AZKi Points",
+            "shortName": "AZKi",
+            "subgroup": "Gen 0",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "FF909E",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00015/img_chr_icon_mini_00015.webp",
+            "id": "chr-00015",
+            "name": "Sakura Miko",
+            "pointName": "Sakura Miko Points",
+            "shortName": "Miko",
+            "subgroup": "Gen 0",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "75C0FF",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00018/img_chr_icon_mini_00018.webp",
+            "id": "chr-00018",
+            "name": "Hoshimachi Suisei",
+            "pointName": "Hoshimachi Suisei Points",
+            "shortName": "Suisei",
+            "subgroup": "Gen 0",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "ABE64D",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00004/img_chr_icon_mini_00004.webp",
+            "id": "chr-00004",
+            "name": "Aki Rosenthal",
+            "pointName": "Aki Rosenthal Points",
+            "shortName": "Aki",
+            "subgroup": "Gen 1",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "E5395B",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00005/img_chr_icon_mini_00005.webp",
+            "id": "chr-00005",
+            "name": "Akai Haato",
+            "pointName": "Akai Haato Points",
+            "shortName": "Haato",
+            "subgroup": "Gen 1",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "93D5F2",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00006/img_chr_icon_mini_00006.webp",
+            "id": "chr-00006",
+            "name": "Shirakami Fubuki",
+            "pointName": "Shirakami Fubuki Points",
+            "shortName": "Fubuki",
+            "subgroup": "GAMERS",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "FFCB30",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00007/img_chr_icon_mini_00007.webp",
+            "id": "chr-00007",
+            "name": "Natsuiro Matsuri",
+            "pointName": "Natsuiro Matsuri Points",
+            "shortName": "Matsuri",
+            "subgroup": "Gen 1",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "DD305B",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00010/img_chr_icon_mini_00010.webp",
+            "id": "chr-00010",
+            "name": "Nakiri Ayame",
+            "pointName": "Nakiri Ayame Points",
+            "shortName": "Ayame",
+            "subgroup": "Gen 2",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "FF5487",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00011/img_chr_icon_mini_00011.webp",
+            "id": "chr-00011",
+            "name": "Yuzuki Choco",
+            "pointName": "Yuzuki Choco Points",
+            "shortName": "Choco",
+            "subgroup": "Gen 2",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "E5CE00",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00012/img_chr_icon_mini_00012.webp",
+            "id": "chr-00012",
+            "name": "Oozora Subaru",
+            "pointName": "Oozora Subaru Points",
+            "shortName": "Subaru",
+            "subgroup": "Gen 2",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "DB3131",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00014/img_chr_icon_mini_00014.webp",
+            "id": "chr-00014",
+            "name": "Ookami Mio",
+            "pointName": "Ookami Mio Points",
+            "shortName": "Mio",
+            "subgroup": "GAMERS",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "D866ED",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00016/img_chr_icon_mini_00016.webp",
+            "id": "chr-00016",
+            "name": "Nekomata Okayu",
+            "pointName": "Nekomata Okayu Points",
+            "shortName": "Okayu",
+            "subgroup": "GAMERS",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "FFCD28",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00017/img_chr_icon_mini_00017.webp",
+            "id": "chr-00017",
+            "name": "Inugami Korone",
+            "pointName": "Inugami Korone Points",
+            "shortName": "Korone",
+            "subgroup": "GAMERS",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "57A9FF",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00019/img_chr_icon_mini_00019.webp",
+            "id": "chr-00019",
+            "name": "Usada Pekora",
+            "pointName": "Usada Pekora Points",
+            "shortName": "Pekora",
+            "subgroup": "Gen 3",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "FFAB2D",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00021/img_chr_icon_mini_00021.webp",
+            "id": "chr-00021",
+            "name": "Shiranui Flare",
+            "pointName": "Shiranui Flare Points",
+            "shortName": "Flare",
+            "subgroup": "Gen 3",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "A5B5B7",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00022/img_chr_icon_mini_00022.webp",
+            "id": "chr-00022",
+            "name": "Shirogane Noel",
+            "pointName": "Shirogane Noel Points",
+            "shortName": "Noel",
+            "subgroup": "Gen 3",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "C2153B",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00023/img_chr_icon_mini_00023.webp",
+            "id": "chr-00023",
+            "name": "Houshou Marine",
+            "pointName": "Houshou Marine Points",
+            "shortName": "Marine",
+            "subgroup": "Gen 3",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "E2D065",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00026/img_chr_icon_mini_00026.webp",
+            "id": "chr-00026",
+            "name": "Tsunomaki Watame",
+            "pointName": "Tsunomaki Watame Points",
+            "shortName": "Watame",
+            "subgroup": "Gen 4",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "B77FFF",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00027/img_chr_icon_mini_00027.webp",
+            "id": "chr-00027",
+            "name": "Tokoyami Towa",
+            "pointName": "Tokoyami Towa Points",
+            "shortName": "Towa",
+            "subgroup": "Gen 4",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "FF93D0",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00028/img_chr_icon_mini_00028.webp",
+            "id": "chr-00028",
+            "name": "Himemori Luna",
+            "pointName": "Himemori Luna Points",
+            "shortName": "Luna",
+            "subgroup": "Gen 4",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "49AAFF",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00030/img_chr_icon_mini_00030.webp",
+            "id": "chr-00030",
+            "name": "Yukihana Lamy",
+            "pointName": "Yukihana Lamy Points",
+            "shortName": "Lamy",
+            "subgroup": "Gen 5",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "FFC633",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00031/img_chr_icon_mini_00031.webp",
+            "id": "chr-00031",
+            "name": "Momosuzu Nene",
+            "pointName": "Momosuzu Nene Points",
+            "shortName": "Nene",
+            "subgroup": "Gen 5",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "757575",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00032/img_chr_icon_mini_00032.webp",
+            "id": "chr-00032",
+            "name": "Shishiro Botan",
+            "pointName": "Shishiro Botan Points",
+            "shortName": "Botan",
+            "subgroup": "Gen 5",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "ED0043",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00034/img_chr_icon_mini_00034.webp",
+            "id": "chr-00034",
+            "name": "Omaru Polka",
+            "pointName": "Omaru Polka Points",
+            "shortName": "Polka",
+            "subgroup": "Gen 5",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "9464D2",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00035/img_chr_icon_mini_00035.webp",
+            "id": "chr-00035",
+            "name": "La+ Darknesss",
+            "pointName": "La+ Darknesss Points",
+            "shortName": "La+",
+            "subgroup": "holoX",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "831550",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00036/img_chr_icon_mini_00036.webp",
+            "id": "chr-00036",
+            "name": "Takane Lui",
+            "pointName": "Takane Lui Points",
+            "shortName": "Lui",
+            "subgroup": "holoX",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "FF95C8",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00037/img_chr_icon_mini_00037.webp",
+            "id": "chr-00037",
+            "name": "Hakui Koyori",
+            "pointName": "Hakui Koyori Points",
+            "shortName": "Koyori",
+            "subgroup": "holoX",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "5ECFC8",
+            "group": "hololive",
+            "icon": "assetbundles/img_chr_icon_mini_00039/img_chr_icon_mini_00039.webp",
+            "id": "chr-00039",
+            "name": "Kazama Iroha",
+            "pointName": "Kazama Iroha Points",
+            "shortName": "Iroha",
+            "subgroup": "holoX",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "FFAAAA",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03001/img_chr_icon_mini_03001.webp",
+            "id": "chr-03001",
+            "name": "Ayunda Risu",
+            "pointName": "Ayunda Risu Points",
+            "shortName": "Risu",
+            "subgroup": "ID Gen 1",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "AA83FF",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03002/img_chr_icon_mini_03002.webp",
+            "id": "chr-03002",
+            "name": "Moona Hoshinova",
+            "pointName": "Moona Hoshinova Points",
+            "shortName": "Moona",
+            "subgroup": "ID Gen 1",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "9CDF36",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03003/img_chr_icon_mini_03003.webp",
+            "id": "chr-03003",
+            "name": "Airani Iofifteen",
+            "pointName": "Airani Iofifteen Points",
+            "shortName": "Iofi",
+            "subgroup": "ID Gen 1",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "C40041",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03004/img_chr_icon_mini_03004.webp",
+            "id": "chr-03004",
+            "name": "Kureiji Ollie",
+            "pointName": "Kureiji Ollie Points",
+            "shortName": "Ollie",
+            "subgroup": "ID Gen 2",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "F3BF41",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03005/img_chr_icon_mini_03005.webp",
+            "id": "chr-03005",
+            "name": "Anya Melfissa",
+            "pointName": "Anya Melfissa Points",
+            "shortName": "Anya",
+            "subgroup": "ID Gen 2",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "004DC2",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03006/img_chr_icon_mini_03006.webp",
+            "id": "chr-03006",
+            "name": "Pavolia Reine",
+            "pointName": "Pavolia Reine Points",
+            "shortName": "Reine",
+            "subgroup": "ID Gen 2",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "9290A1",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03007/img_chr_icon_mini_03007.webp",
+            "id": "chr-03007",
+            "name": "Vestia Zeta",
+            "pointName": "Vestia Zeta Points",
+            "shortName": "Zeta",
+            "subgroup": "ID Gen 3",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "FC4045",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03008/img_chr_icon_mini_03008.webp",
+            "id": "chr-03008",
+            "name": "Kaela Kovalskia",
+            "pointName": "Kaela Kovalskia Points",
+            "shortName": "Kaela",
+            "subgroup": "ID Gen 3",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "50CFE1",
+            "group": "hololive ID",
+            "icon": "assetbundles/img_chr_icon_mini_03009/img_chr_icon_mini_03009.webp",
+            "id": "chr-03009",
+            "name": "Kobo Kanaeru",
+            "pointName": "Kobo Kanaeru Points",
+            "shortName": "Kobo",
+            "subgroup": "ID Gen 3",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "E01C61",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04001/img_chr_icon_mini_04001.webp",
+            "id": "chr-04001",
+            "name": "Mori Calliope",
+            "pointName": "Mori Calliope Points",
+            "shortName": "Calliope",
+            "subgroup": "Myth",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "FF792E",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04002/img_chr_icon_mini_04002.webp",
+            "id": "chr-04002",
+            "name": "Takanashi Kiara",
+            "pointName": "Takanashi Kiara Points",
+            "shortName": "Kiara",
+            "subgroup": "Myth",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "5D4E83",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04003/img_chr_icon_mini_04003.webp",
+            "id": "chr-04003",
+            "name": "Ninomae Ina'nis",
+            "pointName": "Ninomae Ina'nis Points",
+            "shortName": "Ina'nis",
+            "subgroup": "Myth",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "DF185D",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04007/img_chr_icon_mini_04007.webp",
+            "id": "chr-04007",
+            "name": "IRyS",
+            "pointName": "IRyS Points",
+            "shortName": "IRyS",
+            "subgroup": "Promise",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "2221AA",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04010/img_chr_icon_mini_04010.webp",
+            "id": "chr-04010",
+            "name": "Ouro Kronii",
+            "pointName": "Ouro Kronii Points",
+            "shortName": "Kronii",
+            "subgroup": "Promise",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "EE2222",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04012/img_chr_icon_mini_04012.webp",
+            "id": "chr-04012",
+            "name": "Hakos Baelz",
+            "pointName": "Hakos Baelz Points",
+            "shortName": "Baelz",
+            "subgroup": "Promise",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "C288F7",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04013/img_chr_icon_mini_04013.webp",
+            "id": "chr-04013",
+            "name": "Shiori Novella",
+            "pointName": "Shiori Novella Points",
+            "shortName": "Shiori",
+            "subgroup": "Advent",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "8674FF",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04014/img_chr_icon_mini_04014.webp",
+            "id": "chr-04014",
+            "name": "Koseki Bijou",
+            "pointName": "Koseki Bijou Points",
+            "shortName": "Bijou",
+            "subgroup": "Advent",
+            "tree": "tree-model-004"
+        },
+        {
+            "color": "3950EE",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04015/img_chr_icon_mini_04015.webp",
+            "id": "chr-04015",
+            "name": "Nerissa Ravencroft",
+            "pointName": "Nerissa Ravencroft Points",
+            "shortName": "Nerissa",
+            "subgroup": "Advent",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "80C2F8",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04016/img_chr_icon_mini_04016.webp",
+            "id": "chr-04016",
+            "name": "Fuwawa Abyssgard",
+            "pointName": "Fuwawa Abyssgard Points",
+            "shortName": "Fuwawa",
+            "subgroup": "Advent",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "F79BC2",
+            "group": "hololive EN",
+            "icon": "assetbundles/img_chr_icon_mini_04017/img_chr_icon_mini_04017.webp",
+            "id": "chr-04017",
+            "name": "Mococo Abyssgard",
+            "pointName": "Mococo Abyssgard Points",
+            "shortName": "Mococo",
+            "subgroup": "Advent",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "FFD380",
+            "group": "DEV_IS",
+            "icon": "assetbundles/img_chr_icon_mini_06002/img_chr_icon_mini_06002.webp",
+            "id": "chr-06002",
+            "name": "Otonose Kanade",
+            "pointName": "Otonose Kanade Points",
+            "shortName": "Kanade",
+            "subgroup": "ReGLOSS",
+            "tree": "tree-model-001"
+        },
+        {
+            "color": "FF77A9",
+            "group": "DEV_IS",
+            "icon": "assetbundles/img_chr_icon_mini_06003/img_chr_icon_mini_06003.webp",
+            "id": "chr-06003",
+            "name": "Ichijou Ririka",
+            "pointName": "Ichijou Ririka Points",
+            "shortName": "Ririka",
+            "subgroup": "ReGLOSS",
+            "tree": "tree-model-002"
+        },
+        {
+            "color": "357B6C",
+            "group": "DEV_IS",
+            "icon": "assetbundles/img_chr_icon_mini_06004/img_chr_icon_mini_06004.webp",
+            "id": "chr-06004",
+            "name": "Juufuutei Raden",
+            "pointName": "Juufuutei Raden Points",
+            "shortName": "Raden",
+            "subgroup": "ReGLOSS",
+            "tree": "tree-model-003"
+        },
+        {
+            "color": "A4AAFF",
+            "group": "DEV_IS",
+            "icon": "assetbundles/img_chr_icon_mini_06005/img_chr_icon_mini_06005.webp",
+            "id": "chr-06005",
+            "name": "Todoroki Hajime",
+            "pointName": "Todoroki Hajime Points",
+            "shortName": "Hajime",
+            "subgroup": "ReGLOSS",
+            "tree": "tree-model-004"
+        }
+    ],
+    "nodes": [
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
+            "id": "G-001",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 20
+                }
+            ],
+            "x": 0,
+            "y": -1
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_senseup/img_skill_icon_tree_senseup.webp",
+            "id": "G-002",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 20
+                }
+            ],
+            "x": 0,
+            "y": -2
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp",
+            "id": "G-003",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 20
+                }
+            ],
+            "x": -1,
+            "y": -2
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp",
+            "id": "G-004",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 20
+                }
+            ],
+            "x": 1,
+            "y": -2
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
+            "id": "G-005",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 20
+                }
+            ],
+            "x": 0,
+            "y": -3
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
+            "id": "G-006",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "x": 0,
+            "y": -4
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
+            "id": "G-007",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "x": 0,
+            "y": -5
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp",
+            "id": "G-008",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "x": 0,
+            "y": -6
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp",
+            "id": "G-009",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "x": -1,
+            "y": -6
+        },
+        {
+            "grade": 1,
+            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp",
+            "id": "G-010",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "x": 1,
+            "y": -6
+        },
+        {
+            "grade": 2,
+            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp",
+            "id": "G-011",
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 200
+                },
+                {
+                    "id": "item-skill_tree_allmember-2",
+                    "qty": 50
+                }
+            ],
+            "x": 0,
+            "y": -7
+        }
+    ]
+}
