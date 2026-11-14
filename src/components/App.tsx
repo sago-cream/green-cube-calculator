@@ -155,54 +155,6 @@ export function App(): JSX.Element {
                 />
                 <aside className='control-column'>
                     <section
-                        aria-label='Green cube total'
-                        className='panel total-panel'
-                    >
-                        <span
-                            className='board-amount'
-                            title='Cubes invested in boards'
-                        >
-                            <small>In boards</small>
-                            <strong>{number.format(total)}</strong>
-                        </span>
-                        <span className='count-operator'>+</span>
-                        <label className='inventory-field'>
-                            <span>Inventory</span>
-                            <input
-                                aria-label='Unspent green cubes in inventory'
-                                className='inventory-input'
-                                inputMode='numeric'
-                                onChange={(event) => {
-                                    if (/^\d{0,9}$/v.test(event.target.value)) {
-                                        setInventory(event.target.value);
-                                    }
-                                }}
-                                placeholder='0'
-                                title='Unspent inventory'
-                                value={inventory}
-                            />
-                        </label>
-                        <span className='count-operator'>=</span>
-                        <span aria-live='polite' className='total-amount'>
-                            <img
-                                alt='Green cubes'
-                                height='26'
-                                src='/assets/green-cube.webp'
-                                width='26'
-                            />
-                            <strong
-                                style={{
-                                    fontSize: Math.min(
-                                        26,
-                                        132 / totalText.length
-                                    ),
-                                }}
-                            >
-                                {totalText}
-                            </strong>
-                        </span>
-                    </section>
-                    <section
                         aria-labelledby='patterns-heading'
                         className='panel patterns-panel'
                     >
@@ -287,6 +239,59 @@ export function App(): JSX.Element {
                                 </span>
                             </button>
                         </div>
+                    </section>
+                    <section
+                        aria-label='Green cube total'
+                        className='panel total-panel'
+                    >
+                        <div className='balance-inputs'>
+                            <span
+                                className='board-amount'
+                                title='Cubes invested in boards'
+                            >
+                                <small>In boards</small>
+                                <strong>{number.format(total)}</strong>
+                            </span>
+                            <span className='count-operator'>+</span>
+                            <label className='inventory-field'>
+                                <span>Inventory</span>
+                                <input
+                                    aria-label='Unspent green cubes in inventory'
+                                    className='inventory-input'
+                                    inputMode='numeric'
+                                    onChange={(event) => {
+                                        if (
+                                            /^\d{0,9}$/v.test(
+                                                event.target.value
+                                            )
+                                        ) {
+                                            setInventory(event.target.value);
+                                        }
+                                    }}
+                                    placeholder='0'
+                                    title='Unspent inventory'
+                                    value={inventory}
+                                />
+                            </label>
+                        </div>
+                        <span aria-live='polite' className='total-amount'>
+                            <img
+                                alt='Green cubes'
+                                height='40'
+                                src='/assets/green-cube.webp'
+                                width='40'
+                            />
+                            <strong
+                                style={{
+                                    fontSize: Math.min(
+                                        44,
+                                        420 / totalText.length
+                                    ),
+                                }}
+                            >
+                                {totalText}
+                            </strong>
+                        </span>
                     </section>
                     {storageError && (
                         <p className='save-error' role='alert'>

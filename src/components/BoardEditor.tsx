@@ -6,8 +6,6 @@ import data from '../board-data.json';
 import {
     boardCubes,
     boardNodeCount,
-    PATTERNS,
-    presetOf,
     toggleNode,
     unlockedIds,
 } from '../lib/calculator.js';
@@ -177,34 +175,6 @@ export function BoardEditor({
                 />
                 <div>
                     <h2 id='board-editor-heading'>{member.name}</h2>
-                    <span>Green branch</span>
-                </div>
-                <button
-                    aria-label='Close board editor'
-                    className='icon-button'
-                    onClick={onClose}
-                >
-                    <X size={20} />
-                </button>
-            </header>
-            <div className='board-editor-tools'>
-                <div
-                    aria-label='Board presets'
-                    className='editor-presets'
-                    role='group'
-                >
-                    {PATTERNS.map((pattern) => (
-                        <button
-                            aria-label={`${pattern.nodes} nodes`}
-                            aria-pressed={presetOf(draft) === pattern.nodes}
-                            key={pattern.nodes}
-                            onClick={() => {
-                                change(pattern.nodes);
-                            }}
-                        >
-                            {pattern.nodes === 0 ? 'None' : pattern.nodes}
-                        </button>
-                    ))}
                 </div>
                 <button
                     aria-label='Undo node edit'
@@ -222,7 +192,14 @@ export function BoardEditor({
                 >
                     <Undo2 size={16} />
                 </button>
-            </div>
+                <button
+                    aria-label='Close board editor'
+                    className='icon-button'
+                    onClick={onClose}
+                >
+                    <X size={20} />
+                </button>
+            </header>
             <div
                 className='board-canvas'
                 onPointerCancel={() => {
@@ -410,9 +387,6 @@ export function BoardEditor({
                     {selectedNode.items.find(
                         (item) => item.id === 'item-skill_tree_allmember-1'
                     )?.qty ?? 0}
-                </span>
-                <span className='node-detail-hint'>
-                    Click to unlock a path or remove a node.
                 </span>
             </div>
             <footer className='board-editor-footer'>
