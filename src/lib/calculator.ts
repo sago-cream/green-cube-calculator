@@ -224,3 +224,43 @@ export function toggleNode(board: Board, nodeId: string): Board {
         nodes.filter((node) => owned.has(node.id)).map((node) => node.id)
     );
 }
+
+export function selectionNodeCount(
+    boards: readonly Board[],
+    nodeId: string
+): number {
+    return boards.filter((board) => unlockedIds(board).includes(nodeId)).length;
+}
+
+export function selectionNodeState(
+    boards: readonly Board[],
+    nodeId: string
+): boolean | 'mixed' {
+    const owned = selectionNodeCount(boards, nodeId);
+    if (owned === 0) {
+        return false;
+    }
+    return owned === boards.length ? true : 'mixed';
+}
+
+export function toggleSelectedNode(
+    progress: Progress,
+    memberIds: readonly string[],
+    nodeId: string
+): Progress {
+    if (memberIds.length === 0 || !ids.has(nodeId)) {
+        return progress;
+    }
+    const remove = memberIds.every((id) =>
+        unlockedIds(progress[id] ?? 0).includes(nodeId)
+    );
+    const next = { ...progress };
+    for (const id of memberIds) {
+        const board = progress[id] ?? 0;
+        const owned = unlockedIds(board).includes(nodeId);
+        if (owned === remove) {
+            next[id] = toggleNode(board, nodeId);
+        }
+    }
+    return next;
+}

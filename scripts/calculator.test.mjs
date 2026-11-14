@@ -16,7 +16,10 @@ import {
     normalizeBoard,
     PATTERNS,
     presetOf,
+    selectionNodeCount,
+    selectionNodeState,
     toggleNode,
+    toggleSelectedNode,
     unlockedIds,
 } from '../src/lib/calculator.ts';
 import { applyGenerationPreset } from '../src/lib/generation-presets.ts';
@@ -234,4 +237,58 @@ test('fresh generation recipes are stable and leave the remaining member unchang
 test('whole-roster generation batches assign every member once', () => {
     const generations = groupMembers(data.members);
     assert.equal(cubeTotal(applyGenerationPreset({}, generations)), 30320);
+});
+
+test('a bulk selection distinguishes shared, locked, and mixed nodes', () => {
+    assert.equal(selectionNodeState([], 'G-001'), false);
+    assert.equal(selectionNodeState([5, 7], 'G-001'), true);
+    assert.equal(selectionNodeState([5, 7], 'G-006'), 'mixed');
+    assert.equal(selectionNodeState([5, 7], 'G-025'), false);
+});
+
+test('clicking a mixed node adds it only to boards that need it', () => {
+    const progress = { sora: 5, roboco: 7, unrelated: 11 };
+    const next = toggleSelectedNode(progress, ['sora', 'roboco'], 'G-006');
+    assert.equal(boardNodeCount(next.sora), 6);
+    assert.equal(boardCubes(next.sora), 180);
+    assert.equal(next.roboco, 7);
+    assert.equal(next.unrelated, 11);
+    assert.deepEqual(progress, { sora: 5, roboco: 7, unrelated: 11 });
+    assert.equal(selectionNodeState([next.sora, next.roboco], 'G-006'), true);
+    const removed = toggleSelectedNode(next, ['sora', 'roboco'], 'G-006');
+    assert.equal(removed.sora, 5);
+    assert.equal(removed.roboco, 5);
+    assert.equal(removed.unrelated, 11);
+});
+
+test('bulk path unlocking preserves existing custom routes and unselected members', () => {
+    const custom = toggleNode(toggleNode(11, 'G-009'), 'G-014');
+    const next = toggleSelectedNode(
+        { sora: custom, roboco: 0, other: 5 },
+        ['sora', 'roboco'],
+        'G-021'
+    );
+    assert.deepEqual(next.sora, custom);
+    assert.ok(unlockedIds(next.roboco).includes('G-021'));
+    assert.equal(boardCubes(next.roboco), 820);
+    assert.equal(next.other, 5);
+    assert.equal(selectionNodeState([next.sora, next.roboco], 'G-021'), true);
+});
+
+test('node edits without a selection or with an unknown node leave the ledger intact', () => {
+    const progress = { sora: 9 };
+    assert.equal(toggleSelectedNode(progress, [], 'G-001'), progress);
+    assert.equal(toggleSelectedNode(progress, ['sora'], 'unknown'), progress);
+});
+
+test('a 9/9/9/11/0 selection shows the union with exact ownership counts', () => {
+    const boards = [9, 9, 9, 11, 0];
+    for (const id of unlockedIds(9))
+        assert.equal(selectionNodeCount(boards, id), 4);
+    for (const id of ['G-018', 'G-021'])
+        assert.equal(selectionNodeCount(boards, id), 1);
+    for (const id of ['G-009', 'G-010', 'G-025'])
+        assert.equal(selectionNodeCount(boards, id), 0);
+    assert.equal(selectionNodeCount([11], 'G-021'), 1);
+    assert.equal(selectionNodeCount([], 'G-001'), 0);
 });

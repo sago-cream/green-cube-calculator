@@ -1,31 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, JSX } from 'react';
-import { Maximize2, Minus, Plus, Undo2, X } from 'lucide-react';
+import { Maximize2, Minus, Plus } from 'lucide-react';
 
 import data from '../board-data.json';
 import {
-    boardCubes,
+    GRID_PITCH,
+    LINK_SIZE,
+    nodeSize,
+    nodePosition as point,
+    ROOT_SIZE,
+} from '../lib/board-geometry.js';
+import {
     boardNodeCount,
-    toggleNode,
-    unlockedIds,
+    selectionNodeCount,
+    selectionNodeState,
 } from '../lib/calculator.js';
 import type { Board } from '../lib/calculator.js';
-import type { Member } from '../lib/member-groups.js';
 
 interface Props {
-    readonly member: Member;
-    readonly board: Board;
-    readonly onClose: () => void;
-    readonly onSave: (board: Board) => void;
+    readonly boards: readonly Board[];
+    readonly onToggleNode: (nodeId: string) => void;
 }
-const formatter = new Intl.NumberFormat('en-US');
-const pitch = 76;
-const width = 608;
-const height = 912;
-const point = (x: number, y: number) => ({
-    x: (x + 4) * pitch,
-    y: (1 - y) * pitch,
-});
+const width = GRID_PITCH * 8;
+const height = GRID_PITCH * 12;
 const cells = [
     {
         id: 'root',
@@ -48,26 +45,20 @@ const links = cells.flatMap((node, index) =>
         }))
 );
 
-export function BoardEditor({
-    member,
-    board,
-    onClose,
-    onSave,
-}: Props): JSX.Element {
-    const dialogRef = useRef<HTMLDialogElement | undefined>(undefined);
+export function BoardEditor({ boards, onToggleNode }: Props): JSX.Element {
     const canvasRef = useRef<HTMLDivElement | undefined>(undefined);
     const drag = useRef<
         { x: number; y: number; startX: number; startY: number } | undefined
     >(undefined);
-    const [draft, setDraft] = useState<Board>(board);
-    const [history, setHistory] = useState<readonly Board[]>([]);
     const [view, setView] = useState({
         scale: 1,
         x: 0,
         y: 0,
     });
     const [nodeId, setNodeId] = useState('G-001');
-    const lit = new Set(unlockedIds(draft));
+    const counts = boards.map(boardNodeCount);
+    const minCount = counts.length > 0 ? Math.min(...counts) : 0;
+    const maxCount = Math.max(...counts, 0);
     const selectedNode =
         data.nodes.find((node) => node.id === nodeId) ?? data.nodes[0];
     const fit = () => {
@@ -104,13 +95,9 @@ export function BoardEditor({
         });
     };
     useEffect(() => {
-        const dialog = dialogRef.current;
         const canvas = canvasRef.current;
-        if (!dialog || !canvas) {
+        if (!canvas) {
             return undefined;
-        }
-        if (!dialog.open) {
-            dialog.showModal();
         }
         const observer = new ResizeObserver(() => {
             const scale =
@@ -152,54 +139,8 @@ export function BoardEditor({
             canvas.removeEventListener('wheel', wheel);
         };
     }, []);
-    const change = (next: Board) => {
-        setHistory((current) => [...current, draft]);
-        setDraft(next);
-    };
     return (
-        <dialog
-            aria-labelledby='board-editor-heading'
-            className='board-dialog'
-            onCancel={onClose}
-            onClose={onClose}
-            ref={(element) => {
-                dialogRef.current = element ?? undefined;
-            }}
-        >
-            <header className='board-editor-header'>
-                <img
-                    alt=''
-                    height='44'
-                    src={`/assets/${member.id}.webp`}
-                    width='44'
-                />
-                <div>
-                    <h2 id='board-editor-heading'>{member.name}</h2>
-                </div>
-                <button
-                    aria-label='Undo node edit'
-                    className='icon-button'
-                    disabled={history.length === 0}
-                    onClick={() => {
-                        const prior = history.at(-1);
-                        if (prior === undefined) {
-                            return;
-                        }
-
-                        setDraft(prior);
-                        setHistory(history.slice(0, -1));
-                    }}
-                >
-                    <Undo2 size={16} />
-                </button>
-                <button
-                    aria-label='Close board editor'
-                    className='icon-button'
-                    onClick={onClose}
-                >
-                    <X size={20} />
-                </button>
-            </header>
+        <>
             <div
                 className='board-canvas'
                 onPointerCancel={() => {
@@ -236,33 +177,36 @@ export function BoardEditor({
             >
                 <div
                     className='green-board-stage'
-                    style={{
-                        height,
-                        transform: `translate(${view.x}px,${view.y}px) scale(${view.scale})`,
-                        width,
-                    }}
+                    style={
+                        {
+                            '--owner-scale': Math.max(1, 0.5 / view.scale),
+                            height,
+                            'transform': `translate(${view.x}px,${view.y}px) scale(${view.scale})`,
+                            width,
+                        } as CSSProperties
+                    }
                 >
                     {links.map((link) => (
                         <img
                             alt=''
                             className='board-link'
-                            height='6'
+                            height={LINK_SIZE}
                             key={link.id}
                             src='/assets/kira.webp'
                             style={{
                                 left: link.x,
                                 top: link.y,
                             }}
-                            width='6'
+                            width={LINK_SIZE}
                         />
                     ))}
                     <div
                         className='editor-root'
                         style={{
-                            height: 61,
+                            height: ROOT_SIZE,
                             left: point(0, 0).x,
                             top: point(0, 0).y,
-                            width: 61,
+                            width: ROOT_SIZE,
                         }}
                     >
                         <img
@@ -274,9 +218,11 @@ export function BoardEditor({
                     {data.nodes.map((node) => {
                         const p = point(node.x, node.y);
                         const grade = node.grade > 1 ? 2 : 1;
-                        const size = grade === 2 ? 70 : 48;
+                        const size = nodeSize(grade);
                         const name = node.icon.split('/', 2)[1];
-                        const owned = lit.has(node.id);
+                        const state = selectionNodeState(boards, node.id);
+                        const owned = state !== false;
+                        const ownerCount = selectionNodeCount(boards, node.id);
                         const cost =
                             node.items.find(
                                 (item) =>
@@ -284,13 +230,18 @@ export function BoardEditor({
                             )?.qty ?? 0;
                         return (
                             <button
-                                aria-label={`${node.id}, ${cost} green cubes`}
-                                aria-pressed={owned}
-                                className={`editor-node ${nodeId === node.id ? 'is-focused' : ''}`}
+                                aria-label={`${node.id}, ${cost} green cubes${boards.length > 1 ? `, ${ownerCount} of ${boards.length} members unlocked` : ''}`}
+                                aria-pressed={state}
+                                className='editor-node'
+                                data-node-id={node.id}
+                                disabled={boards.length === 0}
                                 key={node.id}
                                 onClick={() => {
                                     setNodeId(node.id);
-                                    change(toggleNode(draft, node.id));
+                                    onToggleNode(node.id);
+                                }}
+                                onFocus={() => {
+                                    setNodeId(node.id);
                                 }}
                                 onPointerDown={(event) => {
                                     event.stopPropagation();
@@ -301,6 +252,7 @@ export function BoardEditor({
                                     top: p.y,
                                     width: size,
                                 }}
+                                title={`${node.id}: ${cost} green cubes; ${ownerCount} of ${boards.length} selected members unlocked`}
                             >
                                 <img
                                     alt=''
@@ -338,10 +290,21 @@ export function BoardEditor({
                                     className='board-node-art'
                                     src={`/assets/node-stars-lv${grade}.webp`}
                                 />
+                                {boards.length > 1 && ownerCount > 0 && (
+                                    <span
+                                        aria-hidden='true'
+                                        className='board-owner-count'
+                                    >
+                                        {ownerCount}
+                                    </span>
+                                )}
                             </button>
                         );
                     })}
                 </div>
+                {boards.length === 0 && (
+                    <span className='board-prompt'>Select members to edit</span>
+                )}
                 <div
                     className='board-zoom'
                     onPointerDown={(event) => {
@@ -388,30 +351,13 @@ export function BoardEditor({
                         (item) => item.id === 'item-skill_tree_allmember-1'
                     )?.qty ?? 0}
                 </span>
+                <span className='board-selection-size'>
+                    {minCount === maxCount
+                        ? minCount
+                        : `${minCount}-${maxCount}`}{' '}
+                    nodes
+                </span>
             </div>
-            <footer className='board-editor-footer'>
-                <div aria-live='polite' className='draft-total'>
-                    <img
-                        alt=''
-                        height='32'
-                        src='/assets/green-cube.webp'
-                        width='32'
-                    />
-                    <strong>{formatter.format(boardCubes(draft))}</strong>
-                    <span>{boardNodeCount(draft)} nodes</span>
-                </div>
-                <button className='secondary-button' onClick={onClose}>
-                    Cancel
-                </button>
-                <button
-                    className='primary-button'
-                    onClick={() => {
-                        onSave(draft);
-                    }}
-                >
-                    Save board
-                </button>
-            </footer>
-        </dialog>
+        </>
     );
 }

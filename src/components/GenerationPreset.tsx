@@ -38,21 +38,19 @@ export function GenerationPreset({
     return (
         <button
             aria-label={`Apply optimal to ${complete.length} generations`}
-            className='pattern-card generation-card generation-card-action'
+            className='generation-preset-button'
             disabled={disabled}
             onClick={() => {
                 onApply(applyGenerationPreset(progress, complete));
             }}
+            title={
+                disabled
+                    ? caption
+                    : `9 / 9 / 9${complete.some((generation) => generation.members.length > 3) ? ' / 11' : ''}; ${caption}`
+            }
         >
-            <strong className='action-card-title'>Generation optimal</strong>
-            <UsersRound size={28} />
-            <span className='generation-formula'>
-                {complete.length > 0 &&
-                complete.every((generation) => generation.members.length === 3)
-                    ? '9 / 9 / 9'
-                    : '9 / 9 / 9 / 11'}
-            </span>
-            <span className='action-card-caption'>{caption}</span>
+            <UsersRound size={16} />
+            Generation optimal
         </button>
     );
 }
