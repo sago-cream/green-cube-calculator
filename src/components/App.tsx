@@ -25,6 +25,13 @@ import { Branch } from './Branch.js';
 const STORAGE_KEY = 'green-cube-ledger-v1';
 const MEMBERS: ReadonlyArray<(typeof data.members)[number]> = data.members;
 const number = new Intl.NumberFormat('en-US');
+const groupLabels: Readonly<Record<string, string>> = {
+    'All': 'All',
+    'DEV_IS': 'DEV_IS',
+    'hololive': 'JP',
+    'hololive EN': 'EN',
+    'hololive ID': 'ID',
+};
 
 function readSaved(): unknown {
     let raw: string | null;
@@ -165,14 +172,7 @@ export function App(): JSX.Element {
             <main>
                 <div className='page-intro'>
                     <div>
-                        <span className='eyebrow'>
-                            YOUR HOLOMEM BOARD, ADDED UP
-                        </span>
                         <h1>Every little cube counts.</h1>
-                        <p>
-                            Select your members. Match their green branch. See
-                            what you own.
-                        </p>
                     </div>
                     <span className='save-state'>
                         <span
@@ -201,23 +201,29 @@ export function App(): JSX.Element {
                                         </span>
                                     </h2>
                                 </div>
-                                <button
-                                    className='selected-count'
-                                    disabled={selected.size === 0}
-                                    onClick={() =>
-                                        document
-                                            .querySelector('#patterns-heading')
-                                            ?.scrollIntoView({ block: 'start' })
-                                    }
-                                >
-                                    {selected.size} selected
-                                    {selected.size > 0 && (
-                                        <span>
-                                            {' '}
-                                            &middot; Set pattern &darr;
-                                        </span>
-                                    )}
-                                </button>
+                                {selected.size > 0 && (
+                                    <button
+                                        className='selected-count'
+                                        disabled={selected.size === 0}
+                                        onClick={() =>
+                                            document
+                                                .querySelector(
+                                                    '#patterns-heading'
+                                                )
+                                                ?.scrollIntoView({
+                                                    block: 'start',
+                                                })
+                                        }
+                                    >
+                                        {selected.size} selected
+                                        {selected.size > 0 && (
+                                            <span>
+                                                {' '}
+                                                &middot; Set pattern &darr;
+                                            </span>
+                                        )}
+                                    </button>
+                                )}
                             </div>
                             <div className='member-tools'>
                                 <label className='search'>
@@ -282,13 +288,18 @@ export function App(): JSX.Element {
                                     ),
                                 ].map((name) => (
                                     <button
+                                        aria-label={
+                                            name === 'All'
+                                                ? 'All members'
+                                                : name
+                                        }
                                         aria-pressed={group === name}
                                         key={name}
                                         onClick={() => {
                                             setGroup(name);
                                         }}
                                     >
-                                        {name === 'All' ? 'All members' : name}
+                                        {groupLabels[name] ?? name}
                                     </button>
                                 ))}
                             </div>
@@ -352,13 +363,6 @@ export function App(): JSX.Element {
                                     </button>
                                 </div>
                             )}
-                            <div className='member-footer'>
-                                <span>
-                                    {filtered.length} of {MEMBERS.length}{' '}
-                                    members
-                                </span>
-                                <span>Pick a group, or mix and match.</span>
-                            </div>
                         </section>
                         <section
                             aria-labelledby='patterns-heading'
@@ -371,11 +375,11 @@ export function App(): JSX.Element {
                                         Match the green branch
                                     </h2>
                                 </div>
-                                <span className='pattern-instruction'>
-                                    {selected.size > 0
-                                        ? `Apply to ${selected.size} selected`
-                                        : 'Select members above'}
-                                </span>
+                                {selected.size > 0 && (
+                                    <span className='pattern-instruction'>
+                                        Apply to {selected.size} selected
+                                    </span>
+                                )}
                             </div>
                             <div className='pattern-grid'>
                                 {PATTERNS.map((pattern) => (
@@ -407,18 +411,13 @@ export function App(): JSX.Element {
                                                 width='28'
                                             />
                                             <strong>{pattern.cubes}</strong>
-                                            <span>cubes / member</span>
                                         </span>
                                     </button>
                                 ))}
                             </div>
                             <div className='branch-note'>
                                 <CircleHelp size={16} />
-                                <span>
-                                    From the root upward, including side nodes.
-                                    Small Green Cubes only; Green Hexa is
-                                    excluded.
-                                </span>
+                                <span>Green Hexa excluded.</span>
                             </div>
                         </section>
                     </div>
@@ -439,9 +438,6 @@ export function App(): JSX.Element {
                             <div aria-live='polite' className='grand-total'>
                                 {number.format(total + Number(inventory))}
                             </div>
-                            <span className='total-unit'>
-                                small cubes in total
-                            </span>
                             <div className='total-divider' />
                             <div className='total-row'>
                                 <span>In member boards</span>
@@ -476,7 +472,6 @@ export function App(): JSX.Element {
                                     value={inventory}
                                 />
                             </div>
-                            <p>Board investment + unspent cubes.</p>
                         </section>
                         <section className='panel breakdown'>
                             <h2>Your boards</h2>
@@ -553,10 +548,6 @@ export function App(): JSX.Element {
                     </aside>
                 </div>
                 <footer className='site-footer'>
-                    <span>
-                        <Leaf size={14} />A little clarity for your cube
-                        collection.
-                    </span>
                     <span>
                         Board data & assets from{' '}
                         <a

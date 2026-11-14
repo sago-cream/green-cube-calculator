@@ -134,23 +134,12 @@ main {
     gap: 24px;
     margin-bottom: 32px;
 }
-.eyebrow {
-    color: var(--green);
-    font-size: 10px;
-    letter-spacing: 2px;
-    font-weight: 700;
-}
 h1 {
     font-size: clamp(28px, 3vw, 36px);
     font-weight: 750;
     letter-spacing: -1.4px;
     line-height: 1.25;
-    margin-top: 10px;
-}
-.page-intro p {
-    color: #7b867c;
-    font-size: 14px;
-    margin-top: 12px;
+    margin-top: 0;
 }
 .save-state {
     display: flex;
@@ -189,7 +178,7 @@ h1 {
     box-shadow: 0 2px 3px #21352702;
 }
 .members-panel {
-    padding: 24px 24px 0;
+    padding: 24px;
 }
 .section-title {
     display: flex;
@@ -419,16 +408,6 @@ h2 {
 .node-count.has-nodes > span {
     background: #79a657;
 }
-.member-footer {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 12px;
-    padding: 16px 0;
-    border-top: 1px solid #edf0e9;
-    color: #98a191;
-    font-size: 10px;
-}
 .empty-state {
     padding: 60px 0;
     color: var(--muted);
@@ -627,10 +606,6 @@ h2 {
     font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
 }
-.total-unit {
-    color: #81906f;
-    font-size: 11px;
-}
 .total-divider {
     height: 1px;
     background: #d7e2ca;
@@ -682,12 +657,6 @@ h2 {
 }
 .inventory-input:focus-within {
     border-color: #78a15f;
-}
-.total-panel p {
-    text-align: center;
-    font-size: 9px;
-    color: #9ba88d;
-    margin-top: 12px;
 }
 .breakdown {
     padding: 24px;
@@ -791,7 +760,7 @@ h2 {
 .site-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 20px;
     padding: 28px 0;
     color: #a1aa99;
@@ -955,9 +924,6 @@ h2 {
     .members-panel,
     .patterns-panel {
         padding: 20px 16px;
-    }
-    .members-panel {
-        padding-bottom: 0;
     }
     .member-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
