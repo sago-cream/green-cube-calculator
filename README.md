@@ -1,5 +1,7 @@
 # Green Cube Calculator
 
+[Open the calculator](https://cube.hsichen.dev)
+
 A small Green Cube calculator for the 54 hololive Dreams member boards. Select members or generations and apply 0, 5, 7, 9, or 11 green-node patterns. The side branches are included in the first five; 9 and 11 continue straight down after the first seven. Costs are 0 / 100 / 260 / 540 / 860 small Green Cubes.
 
 Generation presets apply three 9-node boards for three-member generations, or three 9-node boards plus one 11-node board for four- and five-member generations. The allocation minimizes node changes from the current boards. The remaining member stays unchanged.

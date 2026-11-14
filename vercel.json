@@ -2,5 +2,29 @@
     "framework": "vite",
     "buildCommand": "npm run build",
     "installCommand": "npm ci",
-    "outputDirectory": "dist"
+    "outputDirectory": "dist",
+    "redirects": [
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "green-cube-calculator\\.vercel\\.app"
+                }
+            ],
+            "destination": "https://cube.hsichen.dev/:path*",
+            "permanent": true
+        },
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "green-cube-calculator-hsichen\\.vercel\\.app"
+                }
+            ],
+            "destination": "https://cube.hsichen.dev/:path*",
+            "permanent": true
+        }
+    ]
 }
