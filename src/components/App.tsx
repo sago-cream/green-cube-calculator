@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { JSX } from 'react';
-import { ArrowUpRight, Network, RotateCcw, Undo2 } from 'lucide-react';
+import { ArrowUpRight, Network, RotateCcw } from 'lucide-react';
 
 import data from '../board-data.json';
 import { cubeTotal, normalizeBoard, PATTERNS } from '../lib/calculator.js';
@@ -73,7 +73,6 @@ export function App(): JSX.Element {
     const [progress, setProgress] = useState<Progress>(saved.progress);
     const [inventory, setInventory] = useState(saved.inventory);
     const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());
-    const [previous, setPrevious] = useState<Progress | undefined>(undefined);
     const [editingId, setEditingId] = useState<string>();
     const editingMember = MEMBERS.find((member) => member.id === editingId);
     const [storageError, setStorageError] = useState(false);
@@ -95,59 +94,15 @@ export function App(): JSX.Element {
     const total = cubeTotal(progress);
     const totalText = number.format(total + Number(inventory));
     const apply = (pattern: Pattern) => {
-        setPrevious({ ...progress });
         setProgress((current) => ({
             ...current,
             ...Object.fromEntries([...selected].map((id) => [id, pattern])),
         }));
         setSelected(new Set());
     };
-    const undo = () => {
-        if (!previous) {
-            return;
-        }
-
-        setProgress(previous);
-        setPrevious(undefined);
-    };
     return (
         <div className='app'>
-            <header className='site-header'>
-                <a className='brand' href='#'>
-                    <img
-                        alt=''
-                        className='brand-logo'
-                        height='36'
-                        src='/assets/green-cube.webp'
-                        width='36'
-                    />
-                    <h1>Green Cube Calculator</h1>
-                </a>
-                <div className='header-actions'>
-                    <button
-                        aria-label='Undo board change'
-                        className='header-button'
-                        disabled={previous === undefined}
-                        onClick={undo}
-                    >
-                        <Undo2 size={15} />
-                        Undo
-                    </button>
-                    <button
-                        aria-label='Reset all boards'
-                        className='header-button'
-                        disabled={total === 0}
-                        onClick={() => {
-                            setPrevious({ ...progress });
-                            setProgress({});
-                        }}
-                    >
-                        <RotateCcw size={14} />
-                        Reset
-                    </button>
-                </div>
-            </header>
-            <main className='dashboard'>
+            <main aria-label='Green Cube Calculator' className='dashboard'>
                 <Members
                     onSelect={setSelected}
                     progress={progress}
@@ -169,6 +124,18 @@ export function App(): JSX.Element {
                             {selected.size > 0 && (
                                 <span>{selected.size} selected</span>
                             )}
+                            <button
+                                aria-label='Reset all boards'
+                                className='reset-button'
+                                disabled={total === 0}
+                                onClick={() => {
+                                    setProgress({});
+                                }}
+                                title='Reset all boards'
+                            >
+                                <RotateCcw size={14} />
+                                Reset
+                            </button>
                         </div>
                         <div className='pattern-grid'>
                             {PATTERNS.map((pattern) => (
@@ -206,7 +173,6 @@ export function App(): JSX.Element {
                             ))}
                             <GenerationPreset
                                 onApply={(next) => {
-                                    setPrevious({ ...progress });
                                     setProgress(next);
                                     setSelected(new Set());
                                 }}
@@ -314,7 +280,6 @@ export function App(): JSX.Element {
                         setEditingId(undefined);
                     }}
                     onSave={(board) => {
-                        setPrevious({ ...progress });
                         setProgress((current) => ({
                             ...current,
                             [editingMember.id]: board,
