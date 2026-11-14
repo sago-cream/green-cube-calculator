@@ -165,19 +165,22 @@ export function App(): JSX.Element {
                             {number.format(total)} <small>boards</small>
                         </span>
                         <span className='count-operator'>+</span>
-                        <input
-                            aria-label='Unspent green cubes in inventory'
-                            className='inventory-input'
-                            inputMode='numeric'
-                            onChange={(event) => {
-                                if (/^\d{0,9}$/v.test(event.target.value)) {
-                                    setInventory(event.target.value);
-                                }
-                            }}
-                            placeholder='Inventory'
-                            title='Unspent inventory'
-                            value={inventory}
-                        />
+                        <label className='inventory-field'>
+                            <span>Inventory</span>
+                            <input
+                                aria-label='Unspent green cubes in inventory'
+                                className='inventory-input'
+                                inputMode='numeric'
+                                onChange={(event) => {
+                                    if (/^\d{0,9}$/v.test(event.target.value)) {
+                                        setInventory(event.target.value);
+                                    }
+                                }}
+                                placeholder='0'
+                                title='Unspent inventory'
+                                value={inventory}
+                            />
+                        </label>
                         <span className='count-operator'>=</span>
                         <span aria-live='polite' className='total-amount'>
                             <img
