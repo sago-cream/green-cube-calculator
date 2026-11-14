@@ -103,6 +103,15 @@ a svg {
     gap: 16px;
     flex-shrink: 0;
 }
+.selected-count {
+    margin-left: 8px;
+    color: var(--muted);
+    font:
+        500 11px 'DM Sans',
+        sans-serif;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
 .select-all {
     display: flex;
     align-items: center;

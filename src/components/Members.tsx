@@ -34,7 +34,14 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
             className='panel members-panel'
         >
             <div className='member-header'>
-                <h2 id='members-heading'>Members</h2>
+                <h2 id='members-heading'>
+                    Members
+                    {selected.size > 0 && (
+                        <span aria-live='polite' className='selected-count'>
+                            {selected.size} selected
+                        </span>
+                    )}
+                </h2>
                 <button
                     aria-pressed={
                         !allSelected && selected.size > 0

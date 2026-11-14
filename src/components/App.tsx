@@ -129,11 +129,8 @@ export function App(): JSX.Element {
                             >
                                 Members
                             </a>
-                            {selected.size > 0 && (
-                                <span>
-                                    {selectedMember?.name ??
-                                        `${selected.size} selected`}
-                                </span>
+                            {selectedMember && (
+                                <span>{selectedMember.name}</span>
                             )}
                         </div>
                         <div className='board-toolbar'>
