@@ -271,6 +271,7 @@ a svg {
     width: min(100%, 528px);
 }
 .member {
+    position: relative;
     pointer-events: auto;
     display: flex;
     flex-direction: column;
@@ -310,16 +311,16 @@ a svg {
 }
 .selection-check {
     position: absolute;
-    left: -4px;
-    top: -2px;
+    right: 0;
+    top: 0;
     display: grid;
     place-items: center;
-    width: 14px;
-    height: 14px;
-    border: 2px solid #fff;
-    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 0 8px 0 8px;
     background: var(--green);
     color: #fff;
+    pointer-events: none;
 }
 .member-name {
     width: 100%;

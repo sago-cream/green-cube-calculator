@@ -115,6 +115,17 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
                                             }}
                                             title={member.name}
                                         >
+                                            {chosen && (
+                                                <span
+                                                    aria-hidden='true'
+                                                    className='selection-check'
+                                                >
+                                                    <Check
+                                                        size={12}
+                                                        strokeWidth={3}
+                                                    />
+                                                </span>
+                                            )}
                                             <span
                                                 className='portrait-wrap'
                                                 style={{
@@ -138,14 +149,6 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
                                                     {count}
                                                     {custom ? '*' : ''}
                                                 </span>
-                                                {chosen && (
-                                                    <span className='selection-check'>
-                                                        <Check
-                                                            size={10}
-                                                            strokeWidth={3}
-                                                        />
-                                                    </span>
-                                                )}
                                             </span>
                                             <span className='member-name'>
                                                 {member.shortName ===
