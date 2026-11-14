@@ -1,100 +1,118 @@
 import type { JSX } from 'react';
 
 import data from '../board-data.json';
+import {
+    LINK_SIZE,
+    nodePosition,
+    nodeSize,
+    ROOT_SIZE,
+} from '../lib/board-geometry.js';
 import type { Pattern } from '../lib/calculator.js';
-
-const position = (x: number, y: number) => ({
-    x: 72 + x * 36,
-    y: 214 + y * 26,
-});
 
 export function Branch({ count }: { count: Pattern }): JSX.Element {
     const { nodes } = data;
-    const edges = [
-        [0, 1],
-        [1, 2],
-        [1, 3],
-        [1, 4],
-        [4, 5],
-        [5, 6],
-        [6, 7],
-        [7, 8],
-        [7, 9],
-        [7, 10],
+    const root = nodePosition(0, 0);
+    const cells = [
+        {
+            id: 'root',
+            x: 0,
+            y: 0,
+        },
+        ...nodes,
     ];
+    const links = cells.flatMap((node, index) =>
+        cells
+            .slice(index + 1)
+            .filter(
+                (other) =>
+                    Math.abs(node.x - other.x) + Math.abs(node.y - other.y) ===
+                    1
+            )
+            .map((other) => ({
+                id: `${node.id}-${other.id}`,
+                x:
+                    (nodePosition(node.x, node.y).x +
+                        nodePosition(other.x, other.y).x) /
+                    2,
+                y:
+                    (nodePosition(node.x, node.y).y +
+                        nodePosition(other.x, other.y).y) /
+                    2,
+            }))
+    );
     return (
         <svg
-            aria-label={`${count} connected green nodes unlocked, growing upward from the root`}
+            aria-label={`${count} connected green nodes unlocked, extending downward from the root`}
             className='branch-preview'
             role='img'
-            viewBox='0 0 144 240'
+            viewBox='0 0 144 264'
         >
-            <line
-                className={count > 0 ? 'edge filled' : 'edge'}
-                x1='72'
-                x2='72'
-                y1='214'
-                y2='188'
+            {links.map((link) => (
+                <image
+                    height={LINK_SIZE}
+                    href='/assets/kira.webp'
+                    key={link.id}
+                    opacity='.65'
+                    width={LINK_SIZE}
+                    x={link.x - LINK_SIZE / 2}
+                    y={link.y - LINK_SIZE / 2}
+                />
+            ))}
+            <image
+                className='root-node'
+                height={ROOT_SIZE * 1.25}
+                href='/assets/socket.webp'
+                width={ROOT_SIZE * 1.25}
+                x={root.x - ROOT_SIZE * 0.625}
+                y={root.y - ROOT_SIZE * 0.625}
             />
-            {edges.map(([a, b]) => {
-                const from = position(nodes[a].x, nodes[a].y);
-                const to = position(nodes[b].x, nodes[b].y);
-                return (
-                    <line
-                        className={
-                            a < count && b < count ? 'edge filled' : 'edge'
-                        }
-                        key={`${a}-${b}`}
-                        x1={from.x}
-                        x2={to.x}
-                        y1={from.y}
-                        y2={to.y}
-                    />
-                );
-            })}
             {nodes.map((node, index) => {
-                const point = position(node.x, node.y);
+                const point = nodePosition(node.x, node.y);
                 const filled = index < count;
-                const radius = node.grade === 2 ? 14 : 11;
+                const grade = node.grade > 1 ? 2 : 1;
+                const size = nodeSize(grade);
+                const iconSize = size * (grade === 2 ? 0.6522 : 0.6875);
+                const shadowSize = size * (grade === 2 ? 0.7391 : 0.8125);
+                const iconName = node.icon.split('/', 2)[1];
                 return (
                     <g
-                        className={
-                            filled ? 'branch-node filled' : 'branch-node'
-                        }
+                        className={`branch-node ${filled ? 'filled' : ''}`}
+                        data-node-id={node.id}
+                        data-x={point.x}
+                        data-y={point.y}
                         key={node.id}
                     >
-                        <circle cx={point.x} cy={point.y} r={radius} />
-                        {filled ? (
-                            <image
-                                height={(radius - 2) * 2}
-                                href={`/assets/${node.icon.split('/', 2)[1]}.webp`}
-                                width={(radius - 2) * 2}
-                                x={point.x - radius + 2}
-                                y={point.y - radius + 2}
-                            />
-                        ) : (
-                            <circle
-                                className='unfilled-center'
-                                cx={point.x}
-                                cy={point.y}
-                                r='3'
-                            />
-                        )}
+                        <image
+                            height={size * 1.25}
+                            href={`/assets/node-green-lv${grade}${filled ? '' : '-off'}.webp`}
+                            width={size * 1.25}
+                            x={point.x - size * 0.625}
+                            y={point.y - size * 0.625}
+                        />
+                        <image
+                            height={shadowSize}
+                            href={`/assets/${iconName}_shadow.webp`}
+                            width={shadowSize}
+                            x={point.x - shadowSize / 2}
+                            y={point.y - shadowSize / 2}
+                        />
+                        <image
+                            height={iconSize}
+                            href={`/assets/${iconName}.webp`}
+                            width={iconSize}
+                            x={point.x - iconSize / 2}
+                            y={point.y - iconSize / 2}
+                        />
+                        <image
+                            height={size * 1.25}
+                            href={`/assets/node-stars-lv${grade}.webp`}
+                            width={size * 1.25}
+                            x={point.x - size * 0.625}
+                            y={point.y - size * 0.625}
+                        />
                     </g>
                 );
             })}
-            <rect
-                className='root-node'
-                height='18'
-                rx='5'
-                transform='rotate(45 72 214)'
-                width='18'
-                x='63'
-                y='205'
-            />
-            <text textAnchor='middle' x='72' y='238'>
-                ROOT
-            </text>
         </svg>
     );
 }

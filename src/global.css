@@ -471,45 +471,9 @@ h2 {
 }
 .branch-preview {
     display: block;
-    height: 188px;
+    height: 212px;
     width: 100%;
     margin: 8px 0;
-}
-.edge {
-    stroke: #e0e7d9;
-    stroke-width: 3;
-    stroke-linecap: round;
-}
-.edge.filled {
-    stroke: #a6c67b;
-}
-.branch-node circle {
-    fill: #f3f6ef;
-    stroke: #d8e2cf;
-    stroke-width: 1.5;
-}
-.branch-node .unfilled-center {
-    fill: #dce5d3;
-    stroke: none;
-}
-.branch-node.filled circle {
-    fill: #97c95d;
-    stroke: #719f45;
-}
-.branch-node image {
-    filter: saturate(0.8);
-}
-.root-node {
-    fill: #e4ebdd;
-    stroke: #b9c8ad;
-    stroke-width: 1.5;
-}
-.branch-preview text {
-    fill: #99a58d;
-    font:
-        7px 'DM Sans',
-        sans-serif;
-    letter-spacing: 1px;
 }
 .pattern-bottom {
     border-top: 1px solid #e8ede1;
@@ -883,7 +847,7 @@ h2 {
         max-width: none;
     }
     .branch-preview {
-        height: 188px;
+        height: 212px;
     }
     .site-footer {
         align-items: flex-start;
@@ -974,7 +938,7 @@ h2 {
         padding: 12px 16px 8px;
     }
     .branch-preview {
-        height: 176px;
+        height: 200px;
     }
     .pattern-instruction {
         max-width: 78px;
@@ -1020,4 +984,68 @@ h2 {
     button:active:not(:disabled) {
         scale: 1;
     }
+}
+
+.member-list {
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 0 4px 4px;
+    margin: 0 -4px;
+    scrollbar-width: thin;
+    scrollbar-color: #d8e1d3 transparent;
+}
+.member-list .member-grid {
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    padding: 4px 0 12px;
+}
+.generation + .generation {
+    border-top: 1px solid var(--line);
+    padding-top: 8px;
+}
+.generation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface);
+}
+.generation-header h3 {
+    font-size: 11px;
+    font-weight: 650;
+    color: #64775d;
+    margin: 0;
+}
+.generation-select {
+    padding: 0 8px;
+    min-height: 40px;
+}
+.generation-select[aria-pressed='true'] {
+    color: var(--green-dark);
+}
+@media (max-width: 500px) {
+    .member-list {
+        max-height: 360px;
+    }
+    .selected-count {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+    .selected-count span {
+        display: none;
+    }
+    .generation-header h3 {
+        font-size: 10px;
+    }
+}
+
+.branch-preview {
+    background:
+        url('/assets/board-pattern.webp') left bottom / 28px 28px repeat,
+        linear-gradient(180deg, #f0f9ff, #c3cee7);
+    border-radius: 8px;
 }

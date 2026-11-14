@@ -1,6 +1,6 @@
 # Cube Garden
 
-A small Green Cube calculator for the 54 hololive Dreams member boards. Select members and apply a connected 0, 5, 7, or 11 green-node preset. The total adds board investment and an optional unspent inventory balance. Progress stays in local storage; bulk changes can be undone.
+A small Green Cube calculator for the 54 hololive Dreams member boards. Select individual members or whole generations and apply a connected 0, 5, 7, or 11 green-node preset. Previews use the source board's downward branch orientation, square grid, node frames, stars, icons, socket, and sparkle links. The total adds board investment and an optional unspent inventory balance. Progress stays in local storage; bulk changes can be undone.
 
 ```sh
 npm install

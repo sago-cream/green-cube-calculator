@@ -43,7 +43,8 @@
             "pointName": "Tokino Sora Points",
             "shortName": "Sora",
             "subgroup": "Gen 0",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 0"]
         },
         {
             "color": "FF6187",
@@ -54,7 +55,8 @@
             "pointName": "Robocosan Points",
             "shortName": "Robocosan",
             "subgroup": "Gen 0",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 0"]
         },
         {
             "color": "F081A3",
@@ -65,7 +67,8 @@
             "pointName": "AZKi Points",
             "shortName": "AZKi",
             "subgroup": "Gen 0",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 0"]
         },
         {
             "color": "FF909E",
@@ -76,7 +79,8 @@
             "pointName": "Sakura Miko Points",
             "shortName": "Miko",
             "subgroup": "Gen 0",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Gen 0"]
         },
         {
             "color": "75C0FF",
@@ -87,7 +91,8 @@
             "pointName": "Hoshimachi Suisei Points",
             "shortName": "Suisei",
             "subgroup": "Gen 0",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 0"]
         },
         {
             "color": "ABE64D",
@@ -98,7 +103,8 @@
             "pointName": "Aki Rosenthal Points",
             "shortName": "Aki",
             "subgroup": "Gen 1",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 1"]
         },
         {
             "color": "E5395B",
@@ -109,7 +115,8 @@
             "pointName": "Akai Haato Points",
             "shortName": "Haato",
             "subgroup": "Gen 1",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 1"]
         },
         {
             "color": "93D5F2",
@@ -119,8 +126,9 @@
             "name": "Shirakami Fubuki",
             "pointName": "Shirakami Fubuki Points",
             "shortName": "Fubuki",
-            "subgroup": "GAMERS",
-            "tree": "tree-model-004"
+            "subgroup": "Gen 1",
+            "tree": "tree-model-004",
+            "subgroups": ["GAMERS", "Gen 1"]
         },
         {
             "color": "FFCB30",
@@ -131,7 +139,8 @@
             "pointName": "Natsuiro Matsuri Points",
             "shortName": "Matsuri",
             "subgroup": "Gen 1",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 1"]
         },
         {
             "color": "DD305B",
@@ -142,7 +151,8 @@
             "pointName": "Nakiri Ayame Points",
             "shortName": "Ayame",
             "subgroup": "Gen 2",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 2"]
         },
         {
             "color": "FF5487",
@@ -153,7 +163,8 @@
             "pointName": "Yuzuki Choco Points",
             "shortName": "Choco",
             "subgroup": "Gen 2",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 2"]
         },
         {
             "color": "E5CE00",
@@ -164,7 +175,8 @@
             "pointName": "Oozora Subaru Points",
             "shortName": "Subaru",
             "subgroup": "Gen 2",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Gen 2"]
         },
         {
             "color": "DB3131",
@@ -175,7 +187,8 @@
             "pointName": "Ookami Mio Points",
             "shortName": "Mio",
             "subgroup": "GAMERS",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["GAMERS"]
         },
         {
             "color": "D866ED",
@@ -186,7 +199,8 @@
             "pointName": "Nekomata Okayu Points",
             "shortName": "Okayu",
             "subgroup": "GAMERS",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["GAMERS"]
         },
         {
             "color": "FFCD28",
@@ -197,7 +211,8 @@
             "pointName": "Inugami Korone Points",
             "shortName": "Korone",
             "subgroup": "GAMERS",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["GAMERS"]
         },
         {
             "color": "57A9FF",
@@ -208,7 +223,8 @@
             "pointName": "Usada Pekora Points",
             "shortName": "Pekora",
             "subgroup": "Gen 3",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Gen 3"]
         },
         {
             "color": "FFAB2D",
@@ -219,7 +235,8 @@
             "pointName": "Shiranui Flare Points",
             "shortName": "Flare",
             "subgroup": "Gen 3",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 3"]
         },
         {
             "color": "A5B5B7",
@@ -230,7 +247,8 @@
             "pointName": "Shirogane Noel Points",
             "shortName": "Noel",
             "subgroup": "Gen 3",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 3"]
         },
         {
             "color": "C2153B",
@@ -241,7 +259,8 @@
             "pointName": "Houshou Marine Points",
             "shortName": "Marine",
             "subgroup": "Gen 3",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 3"]
         },
         {
             "color": "E2D065",
@@ -252,7 +271,8 @@
             "pointName": "Tsunomaki Watame Points",
             "shortName": "Watame",
             "subgroup": "Gen 4",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 4"]
         },
         {
             "color": "B77FFF",
@@ -263,7 +283,8 @@
             "pointName": "Tokoyami Towa Points",
             "shortName": "Towa",
             "subgroup": "Gen 4",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 4"]
         },
         {
             "color": "FF93D0",
@@ -274,7 +295,8 @@
             "pointName": "Himemori Luna Points",
             "shortName": "Luna",
             "subgroup": "Gen 4",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 4"]
         },
         {
             "color": "49AAFF",
@@ -285,7 +307,8 @@
             "pointName": "Yukihana Lamy Points",
             "shortName": "Lamy",
             "subgroup": "Gen 5",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Gen 5"]
         },
         {
             "color": "FFC633",
@@ -296,7 +319,8 @@
             "pointName": "Momosuzu Nene Points",
             "shortName": "Nene",
             "subgroup": "Gen 5",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Gen 5"]
         },
         {
             "color": "757575",
@@ -307,7 +331,8 @@
             "pointName": "Shishiro Botan Points",
             "shortName": "Botan",
             "subgroup": "Gen 5",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Gen 5"]
         },
         {
             "color": "ED0043",
@@ -318,7 +343,8 @@
             "pointName": "Omaru Polka Points",
             "shortName": "Polka",
             "subgroup": "Gen 5",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Gen 5"]
         },
         {
             "color": "9464D2",
@@ -329,7 +355,8 @@
             "pointName": "La+ Darknesss Points",
             "shortName": "La+",
             "subgroup": "holoX",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["holoX"]
         },
         {
             "color": "831550",
@@ -340,7 +367,8 @@
             "pointName": "Takane Lui Points",
             "shortName": "Lui",
             "subgroup": "holoX",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["holoX"]
         },
         {
             "color": "FF95C8",
@@ -351,7 +379,8 @@
             "pointName": "Hakui Koyori Points",
             "shortName": "Koyori",
             "subgroup": "holoX",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["holoX"]
         },
         {
             "color": "5ECFC8",
@@ -362,7 +391,8 @@
             "pointName": "Kazama Iroha Points",
             "shortName": "Iroha",
             "subgroup": "holoX",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["holoX"]
         },
         {
             "color": "FFAAAA",
@@ -373,7 +403,8 @@
             "pointName": "Ayunda Risu Points",
             "shortName": "Risu",
             "subgroup": "ID Gen 1",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["ID Gen 1"]
         },
         {
             "color": "AA83FF",
@@ -384,7 +415,8 @@
             "pointName": "Moona Hoshinova Points",
             "shortName": "Moona",
             "subgroup": "ID Gen 1",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["ID Gen 1"]
         },
         {
             "color": "9CDF36",
@@ -395,7 +427,8 @@
             "pointName": "Airani Iofifteen Points",
             "shortName": "Iofi",
             "subgroup": "ID Gen 1",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["ID Gen 1"]
         },
         {
             "color": "C40041",
@@ -406,7 +439,8 @@
             "pointName": "Kureiji Ollie Points",
             "shortName": "Ollie",
             "subgroup": "ID Gen 2",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["ID Gen 2"]
         },
         {
             "color": "F3BF41",
@@ -417,7 +451,8 @@
             "pointName": "Anya Melfissa Points",
             "shortName": "Anya",
             "subgroup": "ID Gen 2",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["ID Gen 2"]
         },
         {
             "color": "004DC2",
@@ -428,7 +463,8 @@
             "pointName": "Pavolia Reine Points",
             "shortName": "Reine",
             "subgroup": "ID Gen 2",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["ID Gen 2"]
         },
         {
             "color": "9290A1",
@@ -439,7 +475,8 @@
             "pointName": "Vestia Zeta Points",
             "shortName": "Zeta",
             "subgroup": "ID Gen 3",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["ID Gen 3"]
         },
         {
             "color": "FC4045",
@@ -450,7 +487,8 @@
             "pointName": "Kaela Kovalskia Points",
             "shortName": "Kaela",
             "subgroup": "ID Gen 3",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["ID Gen 3"]
         },
         {
             "color": "50CFE1",
@@ -461,7 +499,8 @@
             "pointName": "Kobo Kanaeru Points",
             "shortName": "Kobo",
             "subgroup": "ID Gen 3",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["ID Gen 3"]
         },
         {
             "color": "E01C61",
@@ -472,7 +511,8 @@
             "pointName": "Mori Calliope Points",
             "shortName": "Calliope",
             "subgroup": "Myth",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Myth"]
         },
         {
             "color": "FF792E",
@@ -483,7 +523,8 @@
             "pointName": "Takanashi Kiara Points",
             "shortName": "Kiara",
             "subgroup": "Myth",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Myth"]
         },
         {
             "color": "5D4E83",
@@ -494,7 +535,8 @@
             "pointName": "Ninomae Ina'nis Points",
             "shortName": "Ina'nis",
             "subgroup": "Myth",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Myth"]
         },
         {
             "color": "DF185D",
@@ -505,7 +547,8 @@
             "pointName": "IRyS Points",
             "shortName": "IRyS",
             "subgroup": "Promise",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Promise"]
         },
         {
             "color": "2221AA",
@@ -516,7 +559,8 @@
             "pointName": "Ouro Kronii Points",
             "shortName": "Kronii",
             "subgroup": "Promise",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Promise"]
         },
         {
             "color": "EE2222",
@@ -527,7 +571,8 @@
             "pointName": "Hakos Baelz Points",
             "shortName": "Baelz",
             "subgroup": "Promise",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Promise"]
         },
         {
             "color": "C288F7",
@@ -538,7 +583,8 @@
             "pointName": "Shiori Novella Points",
             "shortName": "Shiori",
             "subgroup": "Advent",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Advent"]
         },
         {
             "color": "8674FF",
@@ -549,7 +595,8 @@
             "pointName": "Koseki Bijou Points",
             "shortName": "Bijou",
             "subgroup": "Advent",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["Advent"]
         },
         {
             "color": "3950EE",
@@ -560,7 +607,8 @@
             "pointName": "Nerissa Ravencroft Points",
             "shortName": "Nerissa",
             "subgroup": "Advent",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["Advent"]
         },
         {
             "color": "80C2F8",
@@ -571,7 +619,8 @@
             "pointName": "Fuwawa Abyssgard Points",
             "shortName": "Fuwawa",
             "subgroup": "Advent",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["Advent"]
         },
         {
             "color": "F79BC2",
@@ -582,7 +631,8 @@
             "pointName": "Mococo Abyssgard Points",
             "shortName": "Mococo",
             "subgroup": "Advent",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["Advent"]
         },
         {
             "color": "FFD380",
@@ -593,7 +643,8 @@
             "pointName": "Otonose Kanade Points",
             "shortName": "Kanade",
             "subgroup": "ReGLOSS",
-            "tree": "tree-model-001"
+            "tree": "tree-model-001",
+            "subgroups": ["ReGLOSS"]
         },
         {
             "color": "FF77A9",
@@ -604,7 +655,8 @@
             "pointName": "Ichijou Ririka Points",
             "shortName": "Ririka",
             "subgroup": "ReGLOSS",
-            "tree": "tree-model-002"
+            "tree": "tree-model-002",
+            "subgroups": ["ReGLOSS"]
         },
         {
             "color": "357B6C",
@@ -615,7 +667,8 @@
             "pointName": "Juufuutei Raden Points",
             "shortName": "Raden",
             "subgroup": "ReGLOSS",
-            "tree": "tree-model-003"
+            "tree": "tree-model-003",
+            "subgroups": ["ReGLOSS"]
         },
         {
             "color": "A4AAFF",
@@ -626,7 +679,8 @@
             "pointName": "Todoroki Hajime Points",
             "shortName": "Hajime",
             "subgroup": "ReGLOSS",
-            "tree": "tree-model-004"
+            "tree": "tree-model-004",
+            "subgroups": ["ReGLOSS"]
         }
     ],
     "nodes": [

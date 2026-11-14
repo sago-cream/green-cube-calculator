@@ -3,11 +3,17 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
+    GRID_PITCH,
+    nodePosition,
+    nodeSize,
+} from '../src/lib/board-geometry.ts';
+import {
     countPatterns,
     cubeTotal,
     isPattern,
     PATTERNS,
 } from '../src/lib/calculator.ts';
+import { groupMembers } from '../src/lib/member-groups.ts';
 
 const data = JSON.parse(
     readFileSync(new URL('../src/board-data.json', import.meta.url), 'utf8')
@@ -76,4 +82,34 @@ test('saved presets accept only the supported numeric values', () => {
     for (const value of [0, 5, 7, 11]) assert.equal(isPattern(value), true);
     for (const value of [-1, 1, 12, '5', null, undefined, {}, NaN])
         assert.equal(isPattern(value), false);
+});
+
+test('green nodes grow down on the same square grid as the source board', () => {
+    const root = nodePosition(0, 0);
+    const first = nodePosition(0, -1);
+    assert.equal(first.y - root.y, GRID_PITCH);
+    assert.equal(nodePosition(1, -2).x - nodePosition(0, -2).x, GRID_PITCH);
+    assert.equal(nodePosition(0, -7).y - root.y, 7 * GRID_PITCH);
+    assert.ok(Math.abs(nodeSize(2) / nodeSize(1) - 70 / 48) < 1e-10);
+});
+
+test('generation sections preserve all 54 members without double-counting Fubuki', () => {
+    const groups = groupMembers(data.members);
+    const ids = groups.flatMap((group) =>
+        group.members.map((member) => member.id)
+    );
+    assert.equal(groups.length, 15);
+    assert.equal(ids.length, 54);
+    assert.equal(new Set(ids).size, 54);
+    assert.ok(
+        groups
+            .find((group) => group.title === 'JP Gen 1')
+            .members.some((member) => member.id === 'chr-00006')
+    );
+    assert.ok(
+        !groups
+            .find((group) => group.title === 'JP GAMERS')
+            .members.some((member) => member.id === 'chr-00006')
+    );
+    assert.deepEqual(groupMembers([]), []);
 });
