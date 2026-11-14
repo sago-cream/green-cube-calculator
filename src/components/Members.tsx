@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { CSSProperties, JSX } from 'react';
-import { Check, CheckCheck, Network, Search, X } from 'lucide-react';
+import { Check, CheckCheck, Search, X } from 'lucide-react';
 
 import data from '../board-data.json';
 import { boardNodeCount, presetOf } from '../lib/calculator.js';
@@ -15,20 +15,13 @@ const groupLabels: Readonly<Record<string, string>> = {
     'hololive EN': 'EN',
     'hololive ID': 'ID',
 };
-
 interface Props {
     readonly selected: ReadonlySet<string>;
     readonly progress: Progress;
-    readonly onEdit: (memberId: string) => void;
     readonly onSelect: (ids: ReadonlySet<string>) => void;
 }
 
-export function Members({
-    selected,
-    progress,
-    onEdit,
-    onSelect,
-}: Props): JSX.Element {
+export function Members({ selected, progress, onSelect }: Props): JSX.Element {
     const [search, setSearch] = useState('');
     const [group, setGroup] = useState('All');
     const filtered = members.filter(
@@ -39,6 +32,7 @@ export function Members({
                 .includes(search.toLowerCase().trim())
     );
     const generations = groupMembers(filtered);
+    const allGenerations = groupMembers(members);
     const toggle = (id: string) => {
         const next = new Set(selected);
         if (next.has(id)) {
@@ -53,31 +47,12 @@ export function Members({
             aria-labelledby='members-heading'
             className='panel members-panel'
         >
-            <div className='section-title'>
-                <div className='heading-with-step'>
-                    <span className='step'>1</span>
-                    <h2 id='members-heading'>
-                        Select members{' '}
-                        <span className='count'>{members.length}</span>
-                    </h2>
-                </div>
-                {selected.size > 0 && (
-                    <button
-                        className='selected-count'
-                        onClick={() =>
-                            document
-                                .querySelector('#patterns-heading')
-                                ?.scrollIntoView({ block: 'start' })
-                        }
-                    >
-                        {selected.size} selected{' '}
-                        <span>&middot; Set pattern &darr;</span>
-                    </button>
-                )}
-            </div>
-            <div className='member-tools'>
+            <div className='member-header'>
+                <h2 id='members-heading'>
+                    Members <span className='count'>54</span>
+                </h2>
                 <label className='search'>
-                    <Search size={18} />
+                    <Search size={15} />
                     <input
                         aria-label='Search members'
                         onChange={(event) => {
@@ -93,38 +68,22 @@ export function Members({
                                 setSearch('');
                             }}
                         >
-                            <X size={16} />
+                            <X size={14} />
                         </button>
                     )}
                 </label>
-                <button
-                    className='text-button'
-                    disabled={filtered.length === 0}
-                    onClick={() => {
-                        onSelect(
-                            new Set([
-                                ...selected,
-                                ...filtered.map((member) => member.id),
-                            ])
-                        );
-                    }}
-                >
-                    <CheckCheck size={16} />
-                    Select {search !== '' || group !== 'All' ? 'shown' : 'all'}
-                </button>
-                <button
-                    className='text-button clear-selection'
-                    disabled={selected.size === 0}
-                    onClick={() => {
-                        onSelect(new Set());
-                    }}
-                >
-                    Clear
-                </button>
+                {selected.size > 0 && (
+                    <span className='selected-count'>
+                        {selected.size} selected
+                    </span>
+                )}
             </div>
-            <div aria-label='Filter members' className='group-tabs'>
-                {['All', ...new Set(members.map((member) => member.group))].map(
-                    (name) => (
+            <div className='member-filter-row'>
+                <div aria-label='Filter members' className='group-tabs'>
+                    {[
+                        'All',
+                        ...new Set(members.map((member) => member.group)),
+                    ].map((name) => (
                         <button
                             aria-label={name === 'All' ? 'All members' : name}
                             aria-pressed={group === name}
@@ -135,18 +94,59 @@ export function Members({
                         >
                             {groupLabels[name] ?? name}
                         </button>
-                    )
-                )}
+                    ))}
+                </div>
+                <div className='selection-actions'>
+                    <button
+                        className='text-button'
+                        disabled={filtered.length === 0}
+                        onClick={() => {
+                            onSelect(
+                                new Set([
+                                    ...selected,
+                                    ...filtered.map((member) => member.id),
+                                ])
+                            );
+                        }}
+                    >
+                        <CheckCheck size={14} />
+                        Select{' '}
+                        {search !== '' || group !== 'All' ? 'shown' : 'all'}
+                    </button>
+                    <button
+                        className='text-button'
+                        disabled={selected.size === 0}
+                        onClick={() => {
+                            onSelect(new Set());
+                        }}
+                    >
+                        Clear
+                    </button>
+                </div>
             </div>
-            <div className='member-list'>
+            <div
+                className='member-list'
+                style={
+                    {
+                        '--generation-rows': Math.max(
+                            1,
+                            Math.ceil(generations.length / 3)
+                        ),
+                    } as CSSProperties
+                }
+            >
                 {generations.map((generation) => {
-                    const allSelected = generation.members.every((member) =>
+                    const fullGeneration =
+                        allGenerations.find(
+                            (item) => item.key === generation.key
+                        ) ?? generation;
+                    const allSelected = fullGeneration.members.every((member) =>
                         selected.has(member.id)
                     );
                     return (
                         <section
                             aria-label={generation.title}
-                            className='generation'
+                            className={`generation ${allSelected ? 'is-selected' : ''}`}
                             key={generation.key}
                         >
                             <div className='generation-header'>
@@ -154,10 +154,10 @@ export function Members({
                                 <button
                                     aria-label={`${allSelected ? 'Deselect' : 'Select'} ${generation.title}`}
                                     aria-pressed={allSelected}
-                                    className='text-button generation-select'
+                                    className='generation-select'
                                     onClick={() => {
                                         const next = new Set(selected);
-                                        for (const member of generation.members) {
+                                        for (const member of fullGeneration.members) {
                                             if (allSelected) {
                                                 next.delete(member.id);
                                             } else {
@@ -168,82 +168,97 @@ export function Members({
                                     }}
                                 >
                                     {allSelected ? (
-                                        <Check size={14} />
+                                        <Check size={13} />
                                     ) : (
-                                        <CheckCheck size={14} />
-                                    )}{' '}
-                                    {allSelected ? 'Clear' : 'Select'}
+                                        <CheckCheck size={13} />
+                                    )}
+                                    <span>
+                                        {allSelected ? 'Clear' : 'Select'}
+                                    </span>
                                 </button>
                             </div>
-                            <div className='member-grid'>
-                                {generation.members.map((member) => (
-                                    <div
-                                        className={`member-tile ${selected.has(member.id) ? 'is-selected' : ''}`}
-                                        key={member.id}
-                                    >
-                                        <button
-                                            aria-label={`${member.name}, ${boardNodeCount(progress[member.id])} green nodes`}
-                                            aria-pressed={selected.has(
-                                                member.id
-                                            )}
-                                            className='member'
-                                            onClick={() => {
-                                                toggle(member.id);
-                                            }}
+                            <div
+                                className='member-grid'
+                                style={
+                                    {
+                                        '--members': generation.members.length,
+                                    } as CSSProperties
+                                }
+                            >
+                                {generation.members.map((member) => {
+                                    const count = boardNodeCount(
+                                        progress[member.id]
+                                    );
+                                    const custom =
+                                        presetOf(progress[member.id]) ===
+                                        'custom';
+                                    return (
+                                        <div
+                                            className={`member-tile ${selected.has(member.id) ? 'is-selected' : ''}`}
+                                            key={member.id}
                                         >
-                                            <span
-                                                className='portrait-wrap'
-                                                style={
-                                                    {
-                                                        '--member-color': `#${member.color}`,
-                                                    } as CSSProperties
-                                                }
-                                            >
-                                                <img
-                                                    alt=''
-                                                    height='64'
-                                                    src={`/assets/${member.id}.webp`}
-                                                    width='64'
-                                                />
-                                                <span className='selection-check'>
-                                                    {selected.has(
-                                                        member.id
-                                                    ) && (
-                                                        <Check
-                                                            size={12}
-                                                            strokeWidth={3}
-                                                        />
-                                                    )}
-                                                </span>
-                                            </span>
-                                            <span className='member-name'>
-                                                {member.name}
-                                            </span>
-                                        </button>
-                                        <div className='member-node-footer'>
-                                            <span
-                                                className={`node-count ${boardNodeCount(progress[member.id]) > 0 ? 'has-nodes' : ''}`}
-                                            >
-                                                <span />
-                                                {presetOf(
-                                                    progress[member.id]
-                                                ) === 'custom'
-                                                    ? `Custom (${boardNodeCount(progress[member.id])})`
-                                                    : `${boardNodeCount(progress[member.id])} nodes`}
-                                            </span>
                                             <button
-                                                aria-label={`Edit green board for ${member.name}`}
-                                                className='edit-board-button'
+                                                aria-label={`${member.name}, ${count} green nodes`}
+                                                aria-pressed={selected.has(
+                                                    member.id
+                                                )}
+                                                className='member'
                                                 onClick={() => {
-                                                    onEdit(member.id);
+                                                    toggle(member.id);
                                                 }}
-                                                title='Edit green board'
+                                                title={member.name}
                                             >
-                                                <Network size={13} />
+                                                <span
+                                                    className='portrait-wrap'
+                                                    style={
+                                                        {
+                                                            '--member-color': `#${member.color}`,
+                                                        } as CSSProperties
+                                                    }
+                                                >
+                                                    <img
+                                                        alt=''
+                                                        height='48'
+                                                        src={`/assets/${member.id}.webp`}
+                                                        width='48'
+                                                    />
+                                                    <span className='selection-check'>
+                                                        {selected.has(
+                                                            member.id
+                                                        ) && (
+                                                            <Check
+                                                                size={9}
+                                                                strokeWidth={3}
+                                                            />
+                                                        )}
+                                                    </span>
+                                                </span>
+                                                <span className='member-name'>
+                                                    {member.shortName}
+                                                </span>
                                             </button>
+                                            <div className='member-node-footer'>
+                                                <span
+                                                    className={`node-count ${count > 0 ? 'has-nodes' : ''}`}
+                                                    title={
+                                                        custom
+                                                            ? 'Custom board'
+                                                            : `${count} nodes`
+                                                    }
+                                                >
+                                                    <span />
+                                                    {count}
+                                                    {custom ? '*' : ''}
+                                                    <span className='mobile-node-unit'>
+                                                        {custom
+                                                            ? ' custom'
+                                                            : ' nodes'}
+                                                    </span>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </section>
                     );

@@ -48,7 +48,7 @@ export function Branch({ count }: { count: Pattern }): JSX.Element {
             aria-label={`${count} connected green nodes unlocked, extending downward from the root`}
             className='branch-preview'
             role='img'
-            viewBox='0 0 144 324'
+            viewBox='24 0 96 324'
         >
             {links.map((link) => (
                 <image

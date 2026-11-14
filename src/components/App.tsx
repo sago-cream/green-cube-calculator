@@ -1,24 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { JSX } from 'react';
-import {
-    Check,
-    ChevronRight,
-    CircleHelp,
-    Leaf,
-    RotateCcw,
-    Undo2,
-    X,
-} from 'lucide-react';
+import { Check, Network, RotateCcw, Undo2, X } from 'lucide-react';
 
 import data from '../board-data.json';
-import {
-    countPatterns,
-    cubeTotal,
-    normalizeBoard,
-    PATTERNS,
-    presetOf,
-} from '../lib/calculator.js';
+import { cubeTotal, normalizeBoard, PATTERNS } from '../lib/calculator.js';
 import type { Board, Pattern, Progress } from '../lib/calculator.js';
+import { normalizeGenerationMode } from '../lib/generation-presets.js';
+import type { GenerationMode } from '../lib/generation-presets.js';
 import { BoardEditor } from './BoardEditor.js';
 import { Branch } from './Branch.js';
 import { GenerationPreset } from './GenerationPreset.js';
@@ -43,7 +31,13 @@ function readSaved(): unknown {
     }
 }
 
-function loadSaved(): { progress: Progress; inventory: string } {
+interface SavedState {
+    readonly progress: Progress;
+    readonly inventory: string;
+    readonly generationMode: GenerationMode;
+}
+
+function loadSaved(): SavedState {
     const saved = readSaved();
     if (
         saved !== null &&
@@ -69,11 +63,15 @@ function loadSaved(): { progress: Progress; inventory: string } {
         return {
             progress,
             inventory,
+            generationMode: normalizeGenerationMode(
+                'generationMode' in saved ? saved.generationMode : undefined
+            ),
         };
     }
     return {
         progress: {},
         inventory: '',
+        generationMode: 'optimal',
     };
 }
 
@@ -87,34 +85,27 @@ export function App(): JSX.Element {
     const [editingId, setEditingId] = useState<string>();
     const editingMember = MEMBERS.find((member) => member.id === editingId);
     const [storageError, setStorageError] = useState(false);
+    const [generationMode, setGenerationMode] = useState<GenerationMode>(
+        saved.generationMode
+    );
+
     useEffect(() => {
         try {
             localStorage.setItem(
                 STORAGE_KEY,
                 JSON.stringify({
+                    generationMode,
                     inventory,
                     progress,
                 })
             );
+            setStorageError(false);
         } catch {
             setStorageError(true);
         }
-    }, [progress, inventory]);
+    }, [progress, inventory, generationMode]);
     const total = cubeTotal(progress);
-    const customTotal = cubeTotal(
-        Object.fromEntries(
-            Object.entries(progress).filter(
-                ([, board]) => presetOf(board) === 'custom'
-            )
-        )
-    );
-    const counts = countPatterns(
-        progress,
-        MEMBERS.map((member) => member.id)
-    );
-    const selectedTotal = cubeTotal(
-        Object.fromEntries([...selected].map((id) => [id, progress[id] ?? 0]))
-    );
+    const totalText = number.format(total + Number(inventory));
     const apply = (pattern: Pattern) => {
         setPrevious({ ...progress });
         setProgress((current) => ({
@@ -139,272 +130,189 @@ export function App(): JSX.Element {
         <div className='app'>
             <header className='site-header'>
                 <a className='brand' href='#'>
-                    <span className='brand-mark'>
-                        <Leaf size={22} />
-                    </span>{' '}
-                    cube garden <span className='brand-divider' />
-                    <span className='brand-context'>hololive Dreams</span>
+                    <img
+                        alt=''
+                        className='brand-logo'
+                        height='36'
+                        src='/assets/green-cube.webp'
+                        width='36'
+                    />
+                    <h1>Green Cube Calculator</h1>
                 </a>
-                <a
-                    className='source-link'
-                    href='https://holodori.best/game-data?tab=board'
-                    rel='noreferrer'
-                    target='_blank'
-                >
-                    Board reference <ChevronRight size={16} />
-                </a>
-            </header>
-            <main>
-                <div className='page-intro'>
-                    <div>
-                        <h1>Every little cube counts.</h1>
-                    </div>
-                    <span className='save-state'>
-                        <span
-                            className={
-                                storageError ? 'status-dot error' : 'status-dot'
-                            }
-                        />
-                        {storageError
-                            ? 'Local saving unavailable'
-                            : 'Saved on this device'}
-                    </span>
+                <div className='header-actions'>
+                    <button
+                        aria-label='Undo board change'
+                        className='header-button'
+                        disabled={previous === undefined}
+                        onClick={undo}
+                    >
+                        <Undo2 size={15} />
+                        Undo
+                    </button>
+                    <button
+                        aria-label='Reset all boards'
+                        className='header-button'
+                        disabled={total === 0}
+                        onClick={() => {
+                            setPrevious({ ...progress });
+                            setProgress({});
+                            setNotice('Reset all boards.');
+                        }}
+                    >
+                        <RotateCcw size={14} />
+                        Reset
+                    </button>
                 </div>
-                <div className='workspace'>
-                    <div className='editor'>
-                        <Members
-                            onEdit={setEditingId}
-                            onSelect={setSelected}
-                            progress={progress}
-                            selected={selected}
-                        />
-                        <section
-                            aria-labelledby='patterns-heading'
-                            className='panel patterns-panel'
+            </header>
+            <main className='dashboard'>
+                <Members
+                    onSelect={setSelected}
+                    progress={progress}
+                    selected={selected}
+                />
+                <aside className='control-column'>
+                    <section
+                        aria-label='Green cube total'
+                        className='panel total-panel'
+                    >
+                        <span
+                            className='board-amount'
+                            title='Cubes invested in boards'
                         >
-                            <div className='section-title'>
-                                <div className='heading-with-step'>
-                                    <span className='step'>2</span>
-                                    <h2 id='patterns-heading'>
-                                        Match the green branch
-                                    </h2>
-                                </div>
-                                {selected.size > 0 && (
-                                    <span className='pattern-instruction'>
-                                        Apply to {selected.size} selected
+                            {number.format(total)} <small>boards</small>
+                        </span>
+                        <span className='count-operator'>+</span>
+                        <input
+                            aria-label='Unspent green cubes in inventory'
+                            className='inventory-input'
+                            inputMode='numeric'
+                            onChange={(event) => {
+                                if (/^\d{0,9}$/v.test(event.target.value)) {
+                                    setInventory(event.target.value);
+                                }
+                            }}
+                            placeholder='Inventory'
+                            title='Unspent inventory'
+                            value={inventory}
+                        />
+                        <span className='count-operator'>=</span>
+                        <span aria-live='polite' className='total-amount'>
+                            <img
+                                alt='Green cubes'
+                                height='26'
+                                src='/assets/green-cube.webp'
+                                width='26'
+                            />
+                            <strong
+                                style={{
+                                    fontSize: totalText.length > 9 ? 17 : 26,
+                                }}
+                            >
+                                {totalText}
+                            </strong>
+                        </span>
+                    </section>
+                    <section
+                        aria-labelledby='patterns-heading'
+                        className='panel patterns-panel'
+                    >
+                        <div className='control-heading'>
+                            <h2 id='patterns-heading'>Set boards</h2>
+                            {selected.size > 0 && (
+                                <span>{selected.size} selected</span>
+                            )}
+                        </div>
+                        <div className='pattern-grid'>
+                            {PATTERNS.map((pattern) => (
+                                <button
+                                    aria-label={`Apply ${pattern.nodes} nodes, ${pattern.cubes} green cubes`}
+                                    className='pattern-card'
+                                    disabled={selected.size === 0}
+                                    key={pattern.nodes}
+                                    onClick={() => {
+                                        apply(pattern.nodes);
+                                    }}
+                                >
+                                    <span className='pattern-top'>
+                                        {pattern.nodes === 0
+                                            ? 'None'
+                                            : `${pattern.nodes} nodes`}
                                     </span>
-                                )}
-                            </div>
-                            <div className='pattern-grid'>
-                                {PATTERNS.map((pattern) => (
-                                    <button
-                                        aria-label={`Apply ${pattern.nodes} nodes, ${pattern.cubes} green cubes`}
-                                        className='pattern-card'
-                                        disabled={selected.size === 0}
-                                        key={pattern.nodes}
-                                        onClick={() => {
-                                            apply(pattern.nodes);
-                                        }}
+                                    <Branch count={pattern.nodes} />
+                                    <span className='pattern-bottom'>
+                                        <img
+                                            alt=''
+                                            height='20'
+                                            src='/assets/green-cube.webp'
+                                            width='20'
+                                        />
+                                        <strong>{pattern.cubes}</strong>
+                                    </span>
+                                    <span
+                                        aria-hidden='true'
+                                        className='pattern-magnifier'
                                     >
-                                        <span className='pattern-top'>
-                                            <strong>
-                                                {pattern.nodes === 0
-                                                    ? 'No nodes'
-                                                    : `First ${pattern.nodes}`}
-                                            </strong>
-                                            <span className='pattern-arrow'>
-                                                <ChevronRight size={16} />
-                                            </span>
-                                        </span>
                                         <Branch count={pattern.nodes} />
-                                        <span className='pattern-bottom'>
-                                            <img
-                                                alt=''
-                                                height='28'
-                                                src='/assets/green-cube.webp'
-                                                width='28'
-                                            />
-                                            <strong>{pattern.cubes}</strong>
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
+                                    </span>
+                                </button>
+                            ))}
                             <GenerationPreset
+                                mode={generationMode}
                                 onApply={(next, label) => {
                                     setPrevious({ ...progress });
                                     setProgress(next);
                                     setSelected(new Set());
                                     setNotice(label);
                                 }}
+                                onModeChange={setGenerationMode}
                                 progress={progress}
                                 selected={selected}
                             />
-                            <div className='branch-note'>
-                                <CircleHelp size={16} />
-                                <span>Green Hexa excluded.</span>
-                            </div>
-                        </section>
-                    </div>
-                    <aside className='summary'>
-                        <section
-                            aria-labelledby='total-heading'
-                            className='total-panel'
-                        >
-                            <span className='total-icon'>
-                                <img
-                                    alt=''
-                                    height='84'
-                                    src='/assets/green-cube.webp'
-                                    width='84'
-                                />
-                            </span>
-                            <h2 id='total-heading'>Your green cubes</h2>
-                            <div aria-live='polite' className='grand-total'>
-                                {number.format(total + Number(inventory))}
-                            </div>
-                            <div className='total-divider' />
-                            <div className='total-row'>
-                                <span>In member boards</span>
-                                <strong>{number.format(total)}</strong>
-                            </div>
-                            <label
-                                className='inventory-label'
-                                htmlFor='inventory'
+                            <button
+                                aria-label='Edit selected green board'
+                                className='pattern-card custom-board-card'
+                                disabled={selected.size !== 1}
+                                onClick={() => {
+                                    const member = MEMBERS.find((item) =>
+                                        selected.has(item.id)
+                                    );
+                                    if (member) {
+                                        setEditingId(member.id);
+                                    }
+                                }}
                             >
-                                Unspent in inventory <span>optional</span>
-                            </label>
-                            <div className='inventory-input'>
-                                <img
-                                    alt=''
-                                    height='28'
-                                    src='/assets/green-cube.webp'
-                                    width='28'
-                                />
-                                <input
-                                    id='inventory'
-                                    inputMode='numeric'
-                                    onChange={(event) => {
-                                        if (
-                                            /^\d{0,9}$/v.test(
-                                                event.target.value
-                                            )
-                                        ) {
-                                            setInventory(event.target.value);
-                                        }
-                                    }}
-                                    placeholder='0'
-                                    value={inventory}
-                                />
-                            </div>
-                        </section>
-                        <section className='panel breakdown'>
-                            <h2>Your boards</h2>
-                            <div
-                                aria-label={`${PATTERNS.map(
-                                    (pattern) =>
-                                        `${counts[pattern.nodes]} members with ${pattern.nodes} nodes`
-                                ).join(', ')}, ${counts.custom} custom boards`}
-                                className='distribution'
-                                role='img'
-                            >
-                                {PATTERNS.map((pattern) => (
-                                    <span
-                                        className={`segment segment-${pattern.nodes}`}
-                                        key={pattern.nodes}
-                                        style={{ flex: counts[pattern.nodes] }}
-                                    />
-                                ))}
-                                {counts.custom > 0 && (
-                                    <span
-                                        className='segment segment-custom'
-                                        style={{ flex: counts.custom }}
-                                    />
-                                )}
-                            </div>
-                            {PATTERNS.map((pattern) => (
-                                <div
-                                    className='breakdown-row'
-                                    key={pattern.nodes}
-                                >
-                                    <span
-                                        className={`legend-dot segment-${pattern.nodes}`}
-                                    />
-                                    <span>
-                                        {pattern.nodes} nodes{' '}
-                                        <small>
-                                            {String.fromCodePoint(215)}{' '}
-                                            {counts[pattern.nodes]}
-                                        </small>
-                                    </span>
-                                    <strong>
-                                        {number.format(
-                                            pattern.cubes *
-                                                counts[pattern.nodes]
-                                        )}
-                                    </strong>
-                                </div>
-                            ))}
-                            {counts.custom > 0 && (
-                                <div className='breakdown-row'>
-                                    <span className='legend-dot segment-custom' />
-                                    <span>
-                                        Custom{' '}
-                                        <small>
-                                            {String.fromCodePoint(215)}{' '}
-                                            {counts.custom}
-                                        </small>
-                                    </span>
-                                    <strong>
-                                        {number.format(customTotal)}
-                                    </strong>
-                                </div>
-                            )}
-                            <div className='breakdown-total'>
-                                <span>
-                                    {MEMBERS.length - counts[0]} /{' '}
-                                    {MEMBERS.length} boards invested
-                                </span>
-                                <Check size={16} />
-                            </div>
-                        </section>
-                        {selected.size > 0 && (
-                            <div className='selection-summary'>
-                                <strong>
-                                    {selected.size} members selected
+                                <strong className='action-card-title'>
+                                    Edit board
                                 </strong>
-                                <span>
-                                    Currently {number.format(selectedTotal)}{' '}
-                                    cubes in their boards.
+                                <Network size={28} />
+                                <span className='action-card-caption'>
+                                    {selected.size === 1
+                                        ? 'Open interactive board'
+                                        : 'Select one member'}
                                 </span>
-                            </div>
-                        )}
-                        <button
-                            className='reset-button'
-                            disabled={total === 0}
-                            onClick={() => {
-                                setPrevious({ ...progress });
-                                setProgress({});
-                                setNotice('All boards set to 0 nodes.');
-                            }}
-                        >
-                            <RotateCcw size={14} />
-                            Reset all boards
-                        </button>
-                    </aside>
-                </div>
-                <footer className='site-footer'>
-                    <span>
-                        Board data & assets from{' '}
-                        <a
-                            href='https://holodori.best'
-                            rel='noreferrer'
-                            target='_blank'
-                        >
-                            holodori.best
-                        </a>{' '}
-                        &middot; Unofficial fan tool
-                    </span>
-                </footer>
+                            </button>
+                        </div>
+                    </section>
+                    {storageError && (
+                        <p className='save-error' role='alert'>
+                            Could not save on this device.
+                        </p>
+                    )}
+                    {notice !== '' && (
+                        <div className='notice' role='status'>
+                            <Check size={14} />
+                            <span>{notice}</span>
+                            <button
+                                aria-label='Dismiss notification'
+                                onClick={() => {
+                                    setNotice('');
+                                }}
+                            >
+                                <X size={14} />
+                            </button>
+                        </div>
+                    )}
+                </aside>
             </main>
             {editingMember && (
                 <BoardEditor
@@ -420,29 +328,9 @@ export function App(): JSX.Element {
                             [editingMember.id]: board,
                         }));
                         setEditingId(undefined);
-                        setNotice(`Saved ${editingMember.name}'s green board.`);
+                        setNotice(`Saved ${editingMember.name}'s board.`);
                     }}
                 />
-            )}
-            {notice !== '' && (
-                <div className='toast' role='status'>
-                    <Check size={18} />
-                    <span>{notice}</span>
-                    {previous && (
-                        <button onClick={undo}>
-                            <Undo2 size={15} />
-                            Undo
-                        </button>
-                    )}
-                    <button
-                        aria-label='Dismiss notification'
-                        onClick={() => {
-                            setNotice('');
-                        }}
-                    >
-                        <X size={16} />
-                    </button>
-                </div>
             )}
         </div>
     );

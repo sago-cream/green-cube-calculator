@@ -1,5 +1,5 @@
 {
-    "name": "cube-garden",
+    "name": "green-cube-calculator",
     "version": "0.1.0",
     "private": true,
     "type": "module",
@@ -13,7 +13,7 @@
         "format:check": "prettier . --check",
         "typecheck": "tsc -p tsconfig.json --noEmit",
         "check": "tsc -p tsconfig.json --noEmit && eslint . && prettier . --check && vite build",
-        "test": "node --test scripts/calculator.test.mjs"
+        "test": "node --import ./scripts/ts-loader.mjs --test scripts/calculator.test.mjs"
     },
     "dependencies": {
         "lucide-react": "^1.61.0",
