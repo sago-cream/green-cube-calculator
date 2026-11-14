@@ -19,10 +19,7 @@ import {
     toggleNode,
     unlockedIds,
 } from '../src/lib/calculator.ts';
-import {
-    applyGenerationPreset,
-    normalizeGenerationMode,
-} from '../src/lib/generation-presets.ts';
+import { applyGenerationPreset } from '../src/lib/generation-presets.ts';
 import { groupMembers } from '../src/lib/member-groups.ts';
 
 const data = JSON.parse(
@@ -179,11 +176,10 @@ test('three- and four-member generation recipes use 9 / 9 / 9 / 11', () => {
     const three = groups.find((group) => group.title === 'JP Gen 2');
     const four = groups.find((group) => group.title === 'JP Gen 1');
     const eleven = four.members[1].id;
-    const result = applyGenerationPreset(
-        { unrelated: 5, [eleven]: 11 },
-        [three, four],
-        'optimal'
-    );
+    const result = applyGenerationPreset({ unrelated: 5, [eleven]: 11 }, [
+        three,
+        four,
+    ]);
     for (const member of three.members) assert.equal(result[member.id], 9);
     for (const member of four.members)
         assert.equal(result[member.id], member.id === eleven ? 11 : 9);
@@ -200,18 +196,7 @@ test('five-member optimal retains a satisfied arrangement and the remaining cust
     const progress = Object.fromEntries(
         group.members.map((member, index) => [member.id, values[index]])
     );
-    assert.deepEqual(
-        applyGenerationPreset(progress, [group], 'optimal'),
-        progress
-    );
-    assert.equal(
-        cubeTotal(applyGenerationPreset(progress, [group], 'plus5')),
-        2580
-    );
-    assert.equal(
-        cubeTotal(applyGenerationPreset(progress, [group], 'plus7')),
-        2740
-    );
+    assert.deepEqual(applyGenerationPreset(progress, [group]), progress);
 });
 
 test('automatic allocation minimizes changed nodes and keeps existing 11s', () => {
@@ -223,8 +208,7 @@ test('automatic allocation minimizes changed nodes and keeps existing 11s', () =
     );
     const result = applyGenerationPreset(
         { [first]: 5, [third]: 9, [fifth]: 11 },
-        [group],
-        'optimal'
+        [group]
     );
     assert.equal(result[fifth], 11);
     assert.equal(result[third], 9);
@@ -236,38 +220,18 @@ test('automatic allocation minimizes changed nodes and keeps existing 11s', () =
     assert.equal(cubeTotal(result), 2480);
 });
 
-test('fresh generation recipes are stable and optional extras set the remaining member', () => {
+test('fresh generation recipes are stable and leave the remaining member unchanged', () => {
     const group = groupMembers(data.members).find(
         (group) => group.title === 'JP Gen 0'
     );
-    const result = applyGenerationPreset({}, [group], 'optimal');
+    const result = applyGenerationPreset({}, [group]);
     assert.deepEqual(
         group.members.map((member) => result[member.id]),
         [9, 9, 9, 11, 0]
     );
-    assert.equal(cubeTotal(applyGenerationPreset({}, [group], 'plus5')), 2580);
-    assert.equal(cubeTotal(applyGenerationPreset({}, [group], 'plus7')), 2740);
 });
 
 test('whole-roster generation batches assign every member once', () => {
     const generations = groupMembers(data.members);
-    assert.equal(
-        cubeTotal(applyGenerationPreset({}, generations, 'optimal')),
-        30320
-    );
-    assert.equal(
-        cubeTotal(applyGenerationPreset({}, generations, 'plus5')),
-        30520
-    );
-    assert.equal(
-        cubeTotal(applyGenerationPreset({}, generations, 'plus7')),
-        30840
-    );
-});
-
-test('saved generation modes reject stale data', () => {
-    assert.equal(normalizeGenerationMode('plus5'), 'plus5');
-    assert.equal(normalizeGenerationMode('plus7'), 'plus7');
-    assert.equal(normalizeGenerationMode('unsupported'), 'optimal');
-    assert.equal(normalizeGenerationMode(undefined), 'optimal');
+    assert.equal(cubeTotal(applyGenerationPreset({}, generations)), 30320);
 });

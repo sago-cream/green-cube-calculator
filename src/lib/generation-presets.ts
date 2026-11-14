@@ -2,8 +2,6 @@ import { unlockedIds } from './calculator.js';
 import type { Board, Progress } from './calculator.js';
 import type { Generation } from './member-groups.js';
 
-export type GenerationMode = 'optimal' | 'plus5' | 'plus7';
-
 function boardDifference(
     before: Board,
     after: Board
@@ -29,8 +27,7 @@ function boardDifference(
 
 function generationPlan(
     progress: Progress,
-    generation: Readonly<Generation>,
-    mode: GenerationMode
+    generation: Readonly<Generation>
 ): Progress {
     const { members } = generation;
     if (members.length === 3) {
@@ -64,11 +61,6 @@ function generationPlan(
                 let target: Board = member.id === eleven.id ? 11 : 9;
                 if (member.id === keep?.id) {
                     target = progress[member.id] ?? 0;
-                    if (mode === 'plus5') {
-                        target = 5;
-                    } else if (mode === 'plus7') {
-                        target = 7;
-                    }
                 }
                 plan[member.id] = target;
                 const difference = boardDifference(
@@ -95,8 +87,7 @@ function generationPlan(
 
 export function applyGenerationPreset(
     progress: Progress,
-    generations: readonly Generation[],
-    mode: GenerationMode
+    generations: readonly Generation[]
 ): Progress {
     let next: Progress = { ...progress };
     for (const generation of generations) {
@@ -105,12 +96,8 @@ export function applyGenerationPreset(
         }
         next = {
             ...next,
-            ...generationPlan(progress, generation, mode),
+            ...generationPlan(progress, generation),
         };
     }
     return next;
-}
-
-export function normalizeGenerationMode(value: unknown): GenerationMode {
-    return value === 'plus5' || value === 'plus7' ? value : 'optimal';
 }

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { JSX } from 'react';
-import { Check, Network, RotateCcw, Undo2, X } from 'lucide-react';
+import { Network, RotateCcw, Undo2 } from 'lucide-react';
 
 import data from '../board-data.json';
 import { cubeTotal, normalizeBoard, PATTERNS } from '../lib/calculator.js';
 import type { Board, Pattern, Progress } from '../lib/calculator.js';
-import { normalizeGenerationMode } from '../lib/generation-presets.js';
-import type { GenerationMode } from '../lib/generation-presets.js';
 import { BoardEditor } from './BoardEditor.js';
 import { Branch } from './Branch.js';
 import { GenerationPreset } from './GenerationPreset.js';
@@ -34,7 +32,6 @@ function readSaved(): unknown {
 interface SavedState {
     readonly progress: Progress;
     readonly inventory: string;
-    readonly generationMode: GenerationMode;
 }
 
 function loadSaved(): SavedState {
@@ -63,15 +60,11 @@ function loadSaved(): SavedState {
         return {
             progress,
             inventory,
-            generationMode: normalizeGenerationMode(
-                'generationMode' in saved ? saved.generationMode : undefined
-            ),
         };
     }
     return {
         progress: {},
         inventory: '',
-        generationMode: 'optimal',
     };
 }
 
@@ -81,20 +74,15 @@ export function App(): JSX.Element {
     const [inventory, setInventory] = useState(saved.inventory);
     const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());
     const [previous, setPrevious] = useState<Progress | undefined>(undefined);
-    const [notice, setNotice] = useState('');
     const [editingId, setEditingId] = useState<string>();
     const editingMember = MEMBERS.find((member) => member.id === editingId);
     const [storageError, setStorageError] = useState(false);
-    const [generationMode, setGenerationMode] = useState<GenerationMode>(
-        saved.generationMode
-    );
 
     useEffect(() => {
         try {
             localStorage.setItem(
                 STORAGE_KEY,
                 JSON.stringify({
-                    generationMode,
                     inventory,
                     progress,
                 })
@@ -103,7 +91,7 @@ export function App(): JSX.Element {
         } catch {
             setStorageError(true);
         }
-    }, [progress, inventory, generationMode]);
+    }, [progress, inventory]);
     const total = cubeTotal(progress);
     const totalText = number.format(total + Number(inventory));
     const apply = (pattern: Pattern) => {
@@ -112,9 +100,6 @@ export function App(): JSX.Element {
             ...current,
             ...Object.fromEntries([...selected].map((id) => [id, pattern])),
         }));
-        setNotice(
-            `Set ${selected.size} ${selected.size === 1 ? 'member' : 'members'} to ${pattern} nodes.`
-        );
         setSelected(new Set());
     };
     const undo = () => {
@@ -124,7 +109,6 @@ export function App(): JSX.Element {
 
         setProgress(previous);
         setPrevious(undefined);
-        setNotice('Last change undone.');
     };
     return (
         <div className='app'>
@@ -156,7 +140,6 @@ export function App(): JSX.Element {
                         onClick={() => {
                             setPrevious({ ...progress });
                             setProgress({});
-                            setNotice('Reset all boards.');
                         }}
                     >
                         <RotateCcw size={14} />
@@ -257,14 +240,11 @@ export function App(): JSX.Element {
                                 </button>
                             ))}
                             <GenerationPreset
-                                mode={generationMode}
-                                onApply={(next, label) => {
+                                onApply={(next) => {
                                     setPrevious({ ...progress });
                                     setProgress(next);
                                     setSelected(new Set());
-                                    setNotice(label);
                                 }}
-                                onModeChange={setGenerationMode}
                                 progress={progress}
                                 selected={selected}
                             />
@@ -298,20 +278,6 @@ export function App(): JSX.Element {
                             Could not save on this device.
                         </p>
                     )}
-                    {notice !== '' && (
-                        <div className='notice' role='status'>
-                            <Check size={14} />
-                            <span>{notice}</span>
-                            <button
-                                aria-label='Dismiss notification'
-                                onClick={() => {
-                                    setNotice('');
-                                }}
-                            >
-                                <X size={14} />
-                            </button>
-                        </div>
-                    )}
                 </aside>
             </main>
             {editingMember && (
@@ -328,7 +294,6 @@ export function App(): JSX.Element {
                             [editingMember.id]: board,
                         }));
                         setEditingId(undefined);
-                        setNotice(`Saved ${editingMember.name}'s board.`);
                     }}
                 />
             )}

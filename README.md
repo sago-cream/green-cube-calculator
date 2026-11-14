@@ -2,9 +2,9 @@
 
 A small Green Cube calculator for the 54 hololive Dreams member boards. Select members or generations and apply 0, 5, 7, 9, or 11 green-node patterns. The side branches are included in the first five; 9 and 11 continue straight down after the first seven. Costs are 0 / 100 / 260 / 540 / 860 small Green Cubes.
 
-Generation presets apply three 9-node boards for three-member generations, or three 9-node boards plus one 11-node board for four- and five-member generations. The allocation minimizes node changes from the current boards. Plain Optimal leaves the remaining member unchanged; +5 and +7 set that board explicitly.
+Generation presets apply three 9-node boards for three-member generations, or three 9-node boards plus one 11-node board for four- and five-member generations. The allocation minimizes node changes from the current boards. The remaining member stays unchanged.
 
-Select one member and choose Edit board for an interactive green-only board editor with all 25 nodes, pan/zoom, presets, path unlocking, node removal, undo, and save/cancel. Removing a node removes any nodes disconnected from the root. Alternate connected routes remain intact. Custom layouts are counted separately from named presets. Boards, inventory, and generation mode autosave in local storage. Desktop layouts show all 54 members and controls in one viewport.
+Select one member and choose Edit board for an interactive green-only board editor with all 25 nodes, pan/zoom, presets, path unlocking, node removal, undo, and save/cancel. Removing a node removes any nodes disconnected from the root. Alternate connected routes remain intact. Custom layouts are counted separately from named presets. Boards and inventory autosave in local storage. Desktop layouts show all 54 members and controls in one viewport.
 
 ```sh
 npm install
