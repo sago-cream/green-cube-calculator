@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { CSSProperties, JSX } from 'react';
-import { Check, CheckCheck, Search, X } from 'lucide-react';
+import { Check, CheckCheck, Network, Search, X } from 'lucide-react';
 
 import data from '../board-data.json';
+import { boardNodeCount, presetOf } from '../lib/calculator.js';
 import type { Progress } from '../lib/calculator.js';
 import { groupMembers } from '../lib/member-groups.js';
 
@@ -18,10 +19,16 @@ const groupLabels: Readonly<Record<string, string>> = {
 interface Props {
     readonly selected: ReadonlySet<string>;
     readonly progress: Progress;
+    readonly onEdit: (memberId: string) => void;
     readonly onSelect: (ids: ReadonlySet<string>) => void;
 }
 
-export function Members({ selected, progress, onSelect }: Props): JSX.Element {
+export function Members({
+    selected,
+    progress,
+    onEdit,
+    onSelect,
+}: Props): JSX.Element {
     const [search, setSearch] = useState('');
     const [group, setGroup] = useState('All');
     const filtered = members.filter(
@@ -170,48 +177,72 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
                             </div>
                             <div className='member-grid'>
                                 {generation.members.map((member) => (
-                                    <button
-                                        aria-label={`${member.name}, ${progress[member.id] ?? 0} green nodes`}
-                                        aria-pressed={selected.has(member.id)}
-                                        className={`member ${selected.has(member.id) ? 'is-selected' : ''}`}
+                                    <div
+                                        className={`member-tile ${selected.has(member.id) ? 'is-selected' : ''}`}
                                         key={member.id}
-                                        onClick={() => {
-                                            toggle(member.id);
-                                        }}
                                     >
-                                        <span
-                                            className='portrait-wrap'
-                                            style={
-                                                {
-                                                    '--member-color': `#${member.color}`,
-                                                } as CSSProperties
-                                            }
+                                        <button
+                                            aria-label={`${member.name}, ${boardNodeCount(progress[member.id])} green nodes`}
+                                            aria-pressed={selected.has(
+                                                member.id
+                                            )}
+                                            className='member'
+                                            onClick={() => {
+                                                toggle(member.id);
+                                            }}
                                         >
-                                            <img
-                                                alt=''
-                                                height='64'
-                                                src={`/assets/${member.id}.webp`}
-                                                width='64'
-                                            />
-                                            <span className='selection-check'>
-                                                {selected.has(member.id) && (
-                                                    <Check
-                                                        size={12}
-                                                        strokeWidth={3}
-                                                    />
-                                                )}
+                                            <span
+                                                className='portrait-wrap'
+                                                style={
+                                                    {
+                                                        '--member-color': `#${member.color}`,
+                                                    } as CSSProperties
+                                                }
+                                            >
+                                                <img
+                                                    alt=''
+                                                    height='64'
+                                                    src={`/assets/${member.id}.webp`}
+                                                    width='64'
+                                                />
+                                                <span className='selection-check'>
+                                                    {selected.has(
+                                                        member.id
+                                                    ) && (
+                                                        <Check
+                                                            size={12}
+                                                            strokeWidth={3}
+                                                        />
+                                                    )}
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span className='member-name'>
-                                            {member.name}
-                                        </span>
-                                        <span
-                                            className={`node-count ${(progress[member.id] ?? 0) > 0 ? 'has-nodes' : ''}`}
-                                        >
-                                            <span />
-                                            {progress[member.id] ?? 0} nodes
-                                        </span>
-                                    </button>
+                                            <span className='member-name'>
+                                                {member.name}
+                                            </span>
+                                        </button>
+                                        <div className='member-node-footer'>
+                                            <span
+                                                className={`node-count ${boardNodeCount(progress[member.id]) > 0 ? 'has-nodes' : ''}`}
+                                            >
+                                                <span />
+                                                {presetOf(
+                                                    progress[member.id]
+                                                ) === 'custom'
+                                                    ? `Custom (${boardNodeCount(progress[member.id])})`
+                                                    : `${boardNodeCount(progress[member.id])} nodes`}
+                                            </span>
+                                            <button
+                                                aria-label={`Edit green board for ${member.name}`}
+                                                className='edit-board-button'
+                                                onClick={() => {
+                                                    onEdit(member.id);
+                                                }}
+                                                title='Edit green board'
+                                            >
+                                                <Network size={13} />
+                                            </button>
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </section>

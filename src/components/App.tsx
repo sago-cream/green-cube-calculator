@@ -14,11 +14,14 @@ import data from '../board-data.json';
 import {
     countPatterns,
     cubeTotal,
-    isPattern,
+    normalizeBoard,
     PATTERNS,
+    presetOf,
 } from '../lib/calculator.js';
-import type { Pattern, Progress } from '../lib/calculator.js';
+import type { Board, Pattern, Progress } from '../lib/calculator.js';
+import { BoardEditor } from './BoardEditor.js';
 import { Branch } from './Branch.js';
+import { GenerationPreset } from './GenerationPreset.js';
 import { Members } from './Members.js';
 
 const STORAGE_KEY = 'green-cube-ledger-v1';
@@ -49,11 +52,12 @@ function loadSaved(): { progress: Progress; inventory: string } {
         typeof saved.progress === 'object' &&
         saved.progress !== null
     ) {
-        const progress: Record<string, Pattern> = {};
+        const progress: Record<string, Board> = {};
         for (const member of MEMBERS) {
             const value: unknown = Reflect.get(saved.progress, member.id);
-            if (isPattern(value)) {
-                progress[member.id] = value;
+            const board = normalizeBoard(value);
+            if (board !== undefined) {
+                progress[member.id] = board;
             }
         }
         const inventory =
@@ -80,6 +84,8 @@ export function App(): JSX.Element {
     const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());
     const [previous, setPrevious] = useState<Progress | undefined>(undefined);
     const [notice, setNotice] = useState('');
+    const [editingId, setEditingId] = useState<string>();
+    const editingMember = MEMBERS.find((member) => member.id === editingId);
     const [storageError, setStorageError] = useState(false);
     useEffect(() => {
         try {
@@ -95,6 +101,13 @@ export function App(): JSX.Element {
         }
     }, [progress, inventory]);
     const total = cubeTotal(progress);
+    const customTotal = cubeTotal(
+        Object.fromEntries(
+            Object.entries(progress).filter(
+                ([, board]) => presetOf(board) === 'custom'
+            )
+        )
+    );
     const counts = countPatterns(
         progress,
         MEMBERS.map((member) => member.id)
@@ -160,6 +173,7 @@ export function App(): JSX.Element {
                 <div className='workspace'>
                     <div className='editor'>
                         <Members
+                            onEdit={setEditingId}
                             onSelect={setSelected}
                             progress={progress}
                             selected={selected}
@@ -215,6 +229,16 @@ export function App(): JSX.Element {
                                     </button>
                                 ))}
                             </div>
+                            <GenerationPreset
+                                onApply={(next, label) => {
+                                    setPrevious({ ...progress });
+                                    setProgress(next);
+                                    setSelected(new Set());
+                                    setNotice(label);
+                                }}
+                                progress={progress}
+                                selected={selected}
+                            />
                             <div className='branch-note'>
                                 <CircleHelp size={16} />
                                 <span>Green Hexa excluded.</span>
@@ -276,10 +300,10 @@ export function App(): JSX.Element {
                         <section className='panel breakdown'>
                             <h2>Your boards</h2>
                             <div
-                                aria-label={PATTERNS.map(
+                                aria-label={`${PATTERNS.map(
                                     (pattern) =>
                                         `${counts[pattern.nodes]} members with ${pattern.nodes} nodes`
-                                ).join(', ')}
+                                ).join(', ')}, ${counts.custom} custom boards`}
                                 className='distribution'
                                 role='img'
                             >
@@ -290,6 +314,12 @@ export function App(): JSX.Element {
                                         style={{ flex: counts[pattern.nodes] }}
                                     />
                                 ))}
+                                {counts.custom > 0 && (
+                                    <span
+                                        className='segment segment-custom'
+                                        style={{ flex: counts.custom }}
+                                    />
+                                )}
                             </div>
                             {PATTERNS.map((pattern) => (
                                 <div
@@ -314,6 +344,21 @@ export function App(): JSX.Element {
                                     </strong>
                                 </div>
                             ))}
+                            {counts.custom > 0 && (
+                                <div className='breakdown-row'>
+                                    <span className='legend-dot segment-custom' />
+                                    <span>
+                                        Custom{' '}
+                                        <small>
+                                            {String.fromCodePoint(215)}{' '}
+                                            {counts.custom}
+                                        </small>
+                                    </span>
+                                    <strong>
+                                        {number.format(customTotal)}
+                                    </strong>
+                                </div>
+                            )}
                             <div className='breakdown-total'>
                                 <span>
                                     {MEMBERS.length - counts[0]} /{' '}
@@ -361,6 +406,24 @@ export function App(): JSX.Element {
                     </span>
                 </footer>
             </main>
+            {editingMember && (
+                <BoardEditor
+                    board={progress[editingMember.id] ?? 0}
+                    member={editingMember}
+                    onClose={() => {
+                        setEditingId(undefined);
+                    }}
+                    onSave={(board) => {
+                        setPrevious({ ...progress });
+                        setProgress((current) => ({
+                            ...current,
+                            [editingMember.id]: board,
+                        }));
+                        setEditingId(undefined);
+                        setNotice(`Saved ${editingMember.name}'s green board.`);
+                    }}
+                />
+            )}
             {notice !== '' && (
                 <div className='toast' role='status'>
                     <Check size={18} />

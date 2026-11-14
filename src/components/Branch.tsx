@@ -7,10 +7,13 @@ import {
     nodeSize,
     ROOT_SIZE,
 } from '../lib/board-geometry.js';
+import { unlockedIds } from '../lib/calculator.js';
 import type { Pattern } from '../lib/calculator.js';
 
 export function Branch({ count }: { count: Pattern }): JSX.Element {
-    const { nodes } = data;
+    const previewIds = new Set([...unlockedIds(11), 'G-009', 'G-010']);
+    const nodes = data.nodes.filter((node) => previewIds.has(node.id));
+    const lit = new Set(unlockedIds(count));
     const root = nodePosition(0, 0);
     const cells = [
         {
@@ -45,7 +48,7 @@ export function Branch({ count }: { count: Pattern }): JSX.Element {
             aria-label={`${count} connected green nodes unlocked, extending downward from the root`}
             className='branch-preview'
             role='img'
-            viewBox='0 0 144 264'
+            viewBox='0 0 144 324'
         >
             {links.map((link) => (
                 <image
@@ -66,9 +69,9 @@ export function Branch({ count }: { count: Pattern }): JSX.Element {
                 x={root.x - ROOT_SIZE * 0.625}
                 y={root.y - ROOT_SIZE * 0.625}
             />
-            {nodes.map((node, index) => {
+            {nodes.map((node) => {
                 const point = nodePosition(node.x, node.y);
-                const filled = index < count;
+                const filled = lit.has(node.id);
                 const grade = node.grade > 1 ? 2 : 1;
                 const size = nodeSize(grade);
                 const iconSize = size * (grade === 2 ? 0.6522 : 0.6875);

@@ -685,139 +685,140 @@
     ],
     "nodes": [
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
             "id": "G-001",
+            "x": 0,
+            "y": -1,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 20
                 }
             ],
-            "x": 0,
-            "y": -1
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_senseup/img_skill_icon_tree_senseup.webp",
             "id": "G-002",
+            "x": 0,
+            "y": -2,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 20
                 }
             ],
-            "x": 0,
-            "y": -2
+            "icon": "assetbundles/img_skill_icon_tree_senseup/img_skill_icon_tree_senseup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp",
             "id": "G-003",
+            "x": -1,
+            "y": -2,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 20
                 }
             ],
-            "x": -1,
-            "y": -2
+            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp",
             "id": "G-004",
+            "x": 1,
+            "y": -2,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 20
                 }
             ],
-            "x": 1,
-            "y": -2
+            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
             "id": "G-005",
+            "x": 0,
+            "y": -3,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 20
                 }
             ],
-            "x": 0,
-            "y": -3
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
             "id": "G-006",
+            "x": 0,
+            "y": -4,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 80
                 }
             ],
-            "x": 0,
-            "y": -4
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp",
             "id": "G-007",
+            "x": 0,
+            "y": -5,
+            "grade": 1,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 80
                 }
             ],
-            "x": 0,
-            "y": -5
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp",
             "id": "G-008",
-            "items": [
-                {
-                    "id": "item-skill_tree_allmember-1",
-                    "qty": 80
-                }
-            ],
             "x": 0,
-            "y": -6
+            "y": -6,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp"
         },
         {
-            "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp",
             "id": "G-009",
-            "items": [
-                {
-                    "id": "item-skill_tree_allmember-1",
-                    "qty": 80
-                }
-            ],
             "x": -1,
-            "y": -6
-        },
-        {
+            "y": -6,
             "grade": 1,
-            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp",
-            "id": "G-010",
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
                     "qty": 80
                 }
             ],
-            "x": 1,
-            "y": -6
+            "icon": "assetbundles/img_skill_icon_tree_techniqueup/img_skill_icon_tree_techniqueup.webp"
         },
         {
-            "grade": 2,
-            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp",
+            "id": "G-010",
+            "x": 1,
+            "y": -6,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 80
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_performanceup/img_skill_icon_tree_performanceup.webp"
+        },
+        {
             "id": "G-011",
+            "x": 0,
+            "y": -7,
+            "grade": 2,
             "items": [
                 {
                     "id": "item-skill_tree_allmember-1",
@@ -828,8 +829,197 @@
                     "qty": 50
                 }
             ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp"
+        },
+        {
+            "id": "G-012",
+            "x": -1,
+            "y": -7,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
+        },
+        {
+            "id": "G-013",
+            "x": -2,
+            "y": -7,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
+        },
+        {
+            "id": "G-014",
+            "x": -3,
+            "y": -7,
+            "grade": 2,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 200
+                },
+                {
+                    "id": "item-skill_tree_allmember-2",
+                    "qty": 50
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_liverewardquantityuppermilup/img_skill_icon_tree_liverewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-015",
+            "x": 1,
+            "y": -7,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
+        },
+        {
+            "id": "G-016",
+            "x": 2,
+            "y": -7,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterup/img_skill_icon_tree_allparameterup.webp"
+        },
+        {
+            "id": "G-017",
+            "x": 3,
+            "y": -7,
+            "grade": 2,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 200
+                },
+                {
+                    "id": "item-skill_tree_allmember-2",
+                    "qty": 50
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_liverewardcardexpquantityuppermilup/img_skill_icon_tree_liverewardcardexpquantityuppermilup.webp"
+        },
+        {
+            "id": "G-018",
             "x": 0,
-            "y": -7
+            "y": -8,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_senseup/img_skill_icon_tree_senseup.webp"
+        },
+        {
+            "id": "G-019",
+            "x": -1,
+            "y": -8,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-020",
+            "x": 1,
+            "y": -8,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-021",
+            "x": 0,
+            "y": -9,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_allparameterupforcharactergrouping/img_skill_icon_tree_allparameterupforcharactergrouping.webp"
+        },
+        {
+            "id": "G-022",
+            "x": -1,
+            "y": -9,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-023",
+            "x": 1,
+            "y": -9,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-024",
+            "x": -1,
+            "y": -10,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
+        },
+        {
+            "id": "G-025",
+            "x": 1,
+            "y": -10,
+            "grade": 1,
+            "items": [
+                {
+                    "id": "item-skill_tree_allmember-1",
+                    "qty": 160
+                }
+            ],
+            "icon": "assetbundles/img_skill_icon_tree_minigamerewardquantityuppermilup/img_skill_icon_tree_minigamerewardquantityuppermilup.webp"
         }
     ]
 }
