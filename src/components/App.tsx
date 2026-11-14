@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { JSX } from 'react';
-import { Network, RotateCcw, Undo2 } from 'lucide-react';
+import { ArrowUpRight, Network, RotateCcw, Undo2 } from 'lucide-react';
 
 import data from '../board-data.json';
 import { cubeTotal, normalizeBoard, PATTERNS } from '../lib/calculator.js';
@@ -162,7 +162,8 @@ export function App(): JSX.Element {
                             className='board-amount'
                             title='Cubes invested in boards'
                         >
-                            {number.format(total)} <small>boards</small>
+                            <small>In boards</small>
+                            <strong>{number.format(total)}</strong>
                         </span>
                         <span className='count-operator'>+</span>
                         <label className='inventory-field'>
@@ -191,7 +192,10 @@ export function App(): JSX.Element {
                             />
                             <strong
                                 style={{
-                                    fontSize: totalText.length > 9 ? 17 : 26,
+                                    fontSize: Math.min(
+                                        26,
+                                        132 / totalText.length
+                                    ),
                                 }}
                             >
                                 {totalText}
@@ -204,6 +208,12 @@ export function App(): JSX.Element {
                     >
                         <div className='control-heading'>
                             <h2 id='patterns-heading'>Set boards</h2>
+                            <a
+                                className='mobile-members-link'
+                                href='#members-heading'
+                            >
+                                Members
+                            </a>
                             {selected.size > 0 && (
                                 <span>{selected.size} selected</span>
                             )}
@@ -270,7 +280,9 @@ export function App(): JSX.Element {
                                 <Network size={28} />
                                 <span className='action-card-caption'>
                                     {selected.size === 1
-                                        ? 'Open interactive board'
+                                        ? MEMBERS.find((member) =>
+                                              selected.has(member.id)
+                                          )?.shortName
                                         : 'Select one member'}
                                 </span>
                             </button>
@@ -283,6 +295,12 @@ export function App(): JSX.Element {
                     )}
                 </aside>
             </main>
+            {selected.size > 0 && (
+                <a className='mobile-board-shortcut' href='#patterns-heading'>
+                    Set boards <span>{selected.size}</span>
+                    <ArrowUpRight size={16} />
+                </a>
+            )}
             {editingMember && (
                 <BoardEditor
                     board={progress[editingMember.id] ?? 0}

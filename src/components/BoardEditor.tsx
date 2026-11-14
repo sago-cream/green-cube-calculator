@@ -7,6 +7,7 @@ import {
     boardCubes,
     boardNodeCount,
     PATTERNS,
+    presetOf,
     toggleNode,
     unlockedIds,
 } from '../lib/calculator.js';
@@ -194,12 +195,14 @@ export function BoardEditor({
                 >
                     {PATTERNS.map((pattern) => (
                         <button
+                            aria-label={`${pattern.nodes} nodes`}
+                            aria-pressed={presetOf(draft) === pattern.nodes}
                             key={pattern.nodes}
                             onClick={() => {
                                 change(pattern.nodes);
                             }}
                         >
-                            {pattern.nodes}
+                            {pattern.nodes === 0 ? 'None' : pattern.nodes}
                         </button>
                     ))}
                 </div>

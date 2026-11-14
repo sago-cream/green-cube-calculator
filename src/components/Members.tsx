@@ -72,11 +72,6 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
                         </button>
                     )}
                 </label>
-                {selected.size > 0 && (
-                    <span className='selected-count'>
-                        {selected.size} selected
-                    </span>
-                )}
             </div>
             <div className='member-filter-row'>
                 <div aria-label='Filter members' className='group-tabs'>
@@ -222,40 +217,35 @@ export function Members({ selected, progress, onSelect }: Props): JSX.Element {
                                                         src={`/assets/${member.id}.webp`}
                                                         width='48'
                                                     />
-                                                    <span className='selection-check'>
-                                                        {selected.has(
-                                                            member.id
-                                                        ) && (
+                                                    <span
+                                                        className={`node-count ${count > 0 ? 'has-nodes' : ''}`}
+                                                        title={
+                                                            custom
+                                                                ? `${count} nodes, custom board`
+                                                                : `${count} nodes`
+                                                        }
+                                                    >
+                                                        {count}
+                                                        {custom ? '*' : ''}
+                                                    </span>
+                                                    {selected.has(
+                                                        member.id
+                                                    ) && (
+                                                        <span className='selection-check'>
                                                             <Check
-                                                                size={9}
+                                                                size={10}
                                                                 strokeWidth={3}
                                                             />
-                                                        )}
-                                                    </span>
+                                                        </span>
+                                                    )}
                                                 </span>
                                                 <span className='member-name'>
-                                                    {member.shortName}
+                                                    {member.shortName ===
+                                                    'Robocosan'
+                                                        ? 'Roboco'
+                                                        : member.shortName}
                                                 </span>
                                             </button>
-                                            <div className='member-node-footer'>
-                                                <span
-                                                    className={`node-count ${count > 0 ? 'has-nodes' : ''}`}
-                                                    title={
-                                                        custom
-                                                            ? 'Custom board'
-                                                            : `${count} nodes`
-                                                    }
-                                                >
-                                                    <span />
-                                                    {count}
-                                                    {custom ? '*' : ''}
-                                                    <span className='mobile-node-unit'>
-                                                        {custom
-                                                            ? ' custom'
-                                                            : ' nodes'}
-                                                    </span>
-                                                </span>
-                                            </div>
                                         </div>
                                     );
                                 })}

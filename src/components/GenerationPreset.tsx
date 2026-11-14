@@ -25,6 +25,16 @@ export function GenerationPreset({
     );
     const partial = complete.length !== touched.length;
     const disabled = partial || complete.length === 0;
+    const extras = complete.filter(
+        (generation) => generation.members.length === 5
+    ).length;
+    let caption = `Apply to ${complete.length} ${complete.length === 1 ? 'generation' : 'generations'}`;
+    if (extras > 0) {
+        caption = `${extras} extra ${extras === 1 ? 'board' : 'boards'} kept`;
+    }
+    if (disabled) {
+        caption = 'Select full generations';
+    }
     return (
         <button
             aria-label={`Apply optimal to ${complete.length} generations`}
@@ -36,12 +46,13 @@ export function GenerationPreset({
         >
             <strong className='action-card-title'>Generation optimal</strong>
             <UsersRound size={28} />
-            <span className='generation-formula'>9 / 9 / 9 / 11</span>
-            <span className='action-card-caption'>
-                {disabled
-                    ? 'Select full generations'
-                    : `Apply to ${complete.length} ${complete.length === 1 ? 'generation' : 'generations'}`}
+            <span className='generation-formula'>
+                {complete.length > 0 &&
+                complete.every((generation) => generation.members.length === 3)
+                    ? '9 / 9 / 9'
+                    : '9 / 9 / 9 / 11'}
             </span>
+            <span className='action-card-caption'>{caption}</span>
         </button>
     );
 }
