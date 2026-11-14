@@ -5,6 +5,17 @@
     "outputDirectory": "dist",
     "redirects": [
         {
+            "source": "/",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "green-cube-calculator\\.vercel\\.app"
+                }
+            ],
+            "destination": "https://cube.hsichen.dev/",
+            "permanent": true
+        },
+        {
             "source": "/:path*",
             "has": [
                 {
@@ -13,6 +24,17 @@
                 }
             ],
             "destination": "https://cube.hsichen.dev/:path*",
+            "permanent": true
+        },
+        {
+            "source": "/",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "green-cube-calculator-hsichen\\.vercel\\.app"
+                }
+            ],
+            "destination": "https://cube.hsichen.dev/",
             "permanent": true
         },
         {
